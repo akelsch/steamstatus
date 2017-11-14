@@ -1,6 +1,8 @@
 # steamstatus
 A simple &amp; open-source Steam monitoring service built with Flask.
 
+<img src="https://raw.githubusercontent.com/akelsch/steamstatus/master/readme.png" width="540">
+
 ## Dependencies
 * Flask
 * Flask-SQLAlchemy
