@@ -1,0 +1,34 @@
+body {
+  background: #1B2838;
+  color: #FFFFFF;
+  font-size: 16px;
+  padding-top: 2rem;
+}
+
+.status-group {
+  background: #16212E;
+  border-radius: .5rem;
+  margin-top: 3rem;
+}
+
+.name {
+
+}
+
+.status {
+  float: right;
+}
+
+.status-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.status-list hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.flag {
+  padding-right: 5px;
+}
