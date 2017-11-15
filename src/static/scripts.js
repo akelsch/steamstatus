@@ -68,8 +68,13 @@ $.getJSON("status.json", function(data) {
   });
 })
 .fail(function(jqXHR) {
-    var errmsg = $($.parseHTML(jqXHR.responseText)).closest("p").text();
-    errmsg = "HTTP Status Code " + jqXHR.status + ": " + errmsg;
+    var status = jqXHR.status;
+    if (status != 0) {
+      var errmsg = $($.parseHTML(jqXHR.responseText)).closest("p").text();
+      errmsg = "HTTP Status Code " + status + ": " + errmsg;
+    } else {
+      var errmsg = "Flask is not running!";
+    }
 
     $("#servermsg").addClass("alert-danger");
     $("#servermsg").append(errmsg);

@@ -26,7 +26,8 @@ def fetch_json(url):
     try:
         return json.loads(urlopen(url).read().decode())
     except HTTPError as e:
-        abort(e.code, description="There is something wrong with your parameters.")
+        abort(e.code, description="""There is something wrong with your parameters.
+            Did you remember to enter your key?""")
     except URLError as e:
         abort(503, description="The Steam Web API can not be reached.")
 
