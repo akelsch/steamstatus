@@ -46,15 +46,20 @@ def create_json():
     key = "XXX"
     csgo_url = "https://api.steampowered.com/ICSGOServers_730/GetGameServersStatus/v1/?key=" + key
     steam_url = "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=0"
+    print(">>> Fetching JSON from '{}'".format(csgo_url))
     csgo_json = fetch_json(csgo_url)
+    print(">>> Fetching JSON from '{}'".format(steam_url))
     steam_json = fetch_json(steam_url)
 
     # Additional service statuses by checking HTTP codes
     store_url = "https://store.steampowered.com/"
     community_url = "http://steamcommunity.com/"
     api_url = "https://api.steampowered.com/ISteamWebAPIUtil/GetServerInfo/v1/"
+    print(">>> Fetching HTTP Status Code of '{}'".format(store_url))
     store_status = fetch_http_code(store_url)
+    print(">>> Fetching HTTP Status Code of '{}'".format(community_url))
     community_status = fetch_http_code(community_url)
+    print(">>> Fetching HTTP Status Code of '{}'".format(api_url))
     api_status = fetch_http_code(api_url)
 
     # Combine JSON using a ordered dict to remain order
@@ -87,7 +92,7 @@ def create_json():
     db.session.commit()
 
     end = time()
-    print(">>> The Update took {:.2f}s!".format(end - start))
+    print(">>> Finished status update in {:.2f}s!".format(end - start))
     return final_json
 
 @app.route("/status.json", methods=["GET"])

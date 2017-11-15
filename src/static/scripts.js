@@ -27,34 +27,51 @@ function number_format(number, decimals, decPoint, thousandsSep) {
 }
 
 $.getJSON("status.json", function(data) {
+  // Format & fill the amount of online users
   $("#steam_users").text(number_format(data.steam_users, 0, "", " "));
 
+  // Fill the steam services
   $.each(data.steam_services, function(index, value) {
     if (value == 200)
       value = "online"
     else if (!isNaN(value))
-      value = "HTTP status code " + value
+      value = "HTTP Status Code " + value
 
     $("#" + index).text(value);
   });
 
+  // Fill the CS:GO services
   $.each(data.csgo_services, function(index, value) {
     $("#" + index).text(value);
   });
 
+  // Fill the CS:GO servers
   $.each(data.csgo_servers, function(index, value) {
     index = index.toLowerCase().replace(/\s+/g, "_");
     $("#" + index).text(value);
   });
 })
 .done(function() {
-  var good_status = ["online", "normal", "idle", "low", "medium"]
-  var okay_status = ["delayed"]
-  var bad_status = []
+  // Keywords to color the statuses differently
+  var good_status = ["idle",  "low",  "normal",  "online"]
+  var okay_status = ["delayed", "medium"]
+  var bad_status = ["high", "offline"]
+
   $(".status").each(function() {
-    if ( good_status.includes($(this).text()) )
+    var text = $(this).text();
+    if (good_status.includes(text))
       $(this).css("color", "#6C9541");
-    else if ( okay_status.includes($(this).text()) )
+    else if (okay_status.includes(text))
       $(this).css("color", "#53A4C4");
+    else if (bad_status.includes(text))
+      $(this).css("color", "#F44336");
   });
+})
+.fail(function(jqXHR) {
+    var errmsg = $($.parseHTML(jqXHR.responseText)).closest("p").text();
+    errmsg = "HTTP Status Code " + jqXHR.status + ": " + errmsg;
+
+    $("#servermsg").addClass("alert-danger");
+    $("#servermsg").append(errmsg);
+    $("#servermsg").removeAttr("style");
 });

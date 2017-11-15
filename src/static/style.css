@@ -5,14 +5,13 @@ body {
   padding-top: 2rem;
 }
 
+main {
+  padding-top: 3rem;
+}
+
 .status-group {
   background: #16212E;
   border-radius: .5rem;
-  margin-top: 3rem;
-}
-
-.name {
-
 }
 
 .status {
