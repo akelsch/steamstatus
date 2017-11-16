@@ -16,7 +16,7 @@ A simple &amp; open-source Steam monitoring service built with Flask.
 
 2. Create a virtual environment and install all required packages
 
-        virtualenv steamstatus && source steamstatus/bin/activate && pip install -r requirements.txt
+        virtualenv steamstatus && cd steamstatus && source bin/activate && pip install -r requirements.txt
 
 3. Set Flask environment variables
 
