@@ -4,10 +4,7 @@ A simple &amp; open-source Steam monitoring service built with Flask.
 <img src="https://raw.githubusercontent.com/akelsch/steamstatus/master/readme.png" width="540">
 
 ## Dependencies
-* Flask
-* Flask-SQLAlchemy
-* jQuery
-* Bootstrap 4
+This project is built with Flask. It is using Bootstrap 4 for the design and jQuery to consume the JSON served by Flask. See requirements.txt for a complete list of Python packages.
 
 ## Deployment
 1. Clone the repository
@@ -29,3 +26,8 @@ A simple &amp; open-source Steam monitoring service built with Flask.
 
         cd src
         flask run
+
+## Potential improvements
+* Store JSON in a better way
+* Make use of historical data (e.g. uptime graph)
+* And probably much more...
