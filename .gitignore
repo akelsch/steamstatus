@@ -105,5 +105,13 @@ venv.bak/
 
 # virtualenv
 bin/
+Include/
 include/
+Lib/
+Scripts/
+tcl/
 pip-selfcheck.json
+
+# IntelliJ
+.idea/
+*.iml

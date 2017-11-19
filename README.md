@@ -20,6 +20,8 @@ This project is built with Flask. It is using Bootstrap 4 for the design and jQu
         export FLASK_APP=app.py
         export FLASK_DEBUG=1  // optional
 
+Note: Running Flask in debug mode will spawn two processes causing the update_database() function to run twice as well (see [Stack Overflow](https://stackoverflow.com/questions/25504149/why-does-running-the-flask-dev-server-run-itself-twice)).
+
 4. Insert your [Steam Web API Key](https://steamcommunity.com/dev/apikey) in app.py
 
 5. Run the app
