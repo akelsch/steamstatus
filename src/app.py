@@ -48,7 +48,7 @@ def update_database():
     Function to update the database every 60 seconds
     """
 
-    #threading.Timer(60, update_database).start()
+    threading.Timer(60, update_database).start()
 
     new_status = Status(timestamp=datetime.utcnow(), json=json.dumps(create_json(apikey)))
     db.session.add(new_status)
