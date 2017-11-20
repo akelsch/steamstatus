@@ -1,5 +1,6 @@
 import json
 import os
+import threading
 from collections import OrderedDict
 from datetime import datetime
 
@@ -17,11 +18,13 @@ app.config["JSON_SORT_KEYS"] = False
 db = SQLAlchemy(app)
 
 # INSERT STEAM WEB API KEY HERE
-apikey = "XXX"
+APIKEY = "XXX"
 
 
-# Database layout for storing statuses
 class Status(db.Model):
+    """
+    Database layout for storing statuses
+    """
     timestamp = db.Column(db.DateTime, primary_key=True)
     json = db.Column(db.Text, nullable=False)
 
@@ -36,7 +39,6 @@ def status_route():
     """
     URL route which serves the latest database entry as JSON
     """
-
     last_status = Status.query.order_by(Status.timestamp.desc()).limit(1).first()
     decoder = json.JSONDecoder(object_pairs_hook=OrderedDict)
 
@@ -47,10 +49,9 @@ def update_database():
     """
     Function to update the database every 60 seconds
     """
-
     threading.Timer(60, update_database).start()
 
-    new_status = Status(timestamp=datetime.utcnow(), json=json.dumps(create_json(apikey)))
+    new_status = Status(timestamp=datetime.utcnow(), json=json.dumps(create_json(APIKEY)))
     db.session.add(new_status)
     db.session.commit()
 
