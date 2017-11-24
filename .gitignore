@@ -115,3 +115,6 @@ pip-selfcheck.json
 # IntelliJ
 .idea/
 *.iml
+
+# steamstatus
+app.py
