@@ -117,4 +117,4 @@ pip-selfcheck.json
 *.iml
 
 # steamstatus
-app.py
+/src/app.db
