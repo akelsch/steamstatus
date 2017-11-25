@@ -10,7 +10,7 @@ from flask import abort
 def fetch_json(url):
     """
     Function to fetch JSON from the given url.
-    Returns an error page (status code 503) if the server is not reachable.
+    Returns an error page with status code 503 if the server is not reachable.
     """
     try:
         return json.loads(urlopen(url).read().decode())
@@ -36,7 +36,7 @@ def fetch_http_code(url):
 
 def create_json(apikey):
     """
-    Function to recreate the JSON (OrderedDict) from scratch
+    Function to recreate the content of status.json from scratch
     """
     start = time.time()
 
@@ -64,7 +64,7 @@ def create_json(apikey):
     print(">>> Fetching HTTP status code of '{}'".format(api_url))
     api_status = fetch_http_code(api_url)
 
-    # Combine all gathered information using a ordered dict to remain order
+    # Combine all gathered information using ordered dicts to remain order
     final_json = OrderedDict()
     final_json["steam_users"] = steam_json["response"]["player_count"]
 
