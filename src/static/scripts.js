@@ -6,14 +6,13 @@ function number_format(number, decimals, decPoint, thousandsSep) {
     var prec = !isFinite(+decimals) ? 0 : Math.abs(decimals);
     var sep = (typeof thousandsSep === 'undefined') ? ',' : thousandsSep;
     var dec = (typeof decPoint === 'undefined') ? '.' : decPoint;
-    var s;
 
     var toFixedFix = function (n, prec) {
         var k = Math.pow(10, prec);
         return '' + (Math.round(n * k) / k).toFixed(prec);
     };
 
-    s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+    var s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
     if (s[0].length > 3) {
         s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
     }
@@ -72,8 +71,7 @@ function status_update() {
         var status = jqXHR.status;
         var errmsg;
         if (status !== 0) {
-            errmsg = $($.parseHTML(jqXHR.responseText)).closest("p").text();
-            errmsg = "HTTP Status Code " + status + ": " + errmsg;
+            errmsg = "HTTP Status Code " + status + ": Check Flask for more details!";
         } else {
             errmsg = "Flask is not running!";
         }
@@ -103,4 +101,4 @@ function auto_update() {
 }
 
 // Calling auto_update() once to start the loop
-auto_update();
+$(document).ready(auto_update);
