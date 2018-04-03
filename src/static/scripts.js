@@ -1,78 +1,94 @@
-// Run a single JSON fetch and update the HTML
-function status_update() {
-    return $.getJSON("status.json", function (data) {
-        // Format & fill the amount of online users
-        $("#steam_users").text(new Intl.NumberFormat().format(data.steam_users));
+// Start the loop once the document is loaded
+document.addEventListener("DOMContentLoaded", startLoop);
 
-        // Fill the steam services
-        $.each(data.steam_services, function (index, value) {
-            if (value === 200)
-                value = "online";
-            else if (!isNaN(value))
-                value = "HTTP Status Code " + value;
+// Call fetchUpdate() every x seconds
+function startLoop() {
+    fetchUpdate().then(function() {
+        const x = 45;
 
-            $("#" + index).text(value);
-        });
+        let start = new Date;
+        let interval = setInterval(function() {
+            let sum = Math.floor((new Date - start) / 1000);
+            let remaining = x - sum;
 
-        // Fill the CS:GO services
-        $.each(data.csgo_services, function (index, value) {
-            $("#" + index).text(value);
-        });
+            document.querySelector("#seconds").innerHTML = remaining;
 
-        // Fill the CS:GO servers
-        $.each(data.csgo_servers, function (index, value) {
-            index = index.toLowerCase().replace(/\s+/g, "_");
-            $("#" + index).text(value);
-        });
-    })
-    .done(function () {
-        // Keywords to color the statuses differently
-        var good_status = ["idle", "low", "normal", "online"];
-        var okay_status = ["delayed", "medium"];
-        var bad_status = ["high", "offline"];
-
-        $(".status").each(function () {
-            var text = $(this).text();
-            if (good_status.includes(text))
-                $(this).css("color", "#6C9541");
-            else if (okay_status.includes(text))
-                $(this).css("color", "#53A4C4");
-            else if (bad_status.includes(text))
-                $(this).css("color", "#F44336");
-        });
-    })
-    .fail(function (jqXHR) {
-        var status = jqXHR.status;
-        var errmsg;
-        if (status !== 0) {
-            errmsg = "HTTP Status Code " + status + ": Check Flask for more details!";
-        } else {
-            errmsg = "Flask is not running!";
-        }
-
-        var servermsg = $("#servermsg");
-        servermsg.addClass("alert-danger");
-        servermsg.append(errmsg);
-        servermsg.removeAttr("style");
-    });
-}
-
-// Call status_update() every 45 seconds
-function auto_update() {
-    $.when(status_update()).done(function () {
-        var start = new Date;
-        var interval = setInterval(function () {
-            var total_seconds = Math.floor((new Date - start) / 1000);
-            var time_remaining = 45 - total_seconds;
-            $('#seconds').text(time_remaining);
-
-            if (time_remaining <= 0) {
+            if (remaining <= 0) {
                 clearInterval(interval);
-                auto_update();
+                startLoop();
             }
         }, 1000);
     });
 }
 
-// Calling auto_update() once to start the loop
-$(document).ready(auto_update);
+// Run a single JSON fetch and update the document
+function fetchUpdate() {
+    return fetch("status.json")
+        .then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            // Online users
+            document.querySelector("#steam_users").innerHTML = new Intl.NumberFormat().format(json.steam_users);
+
+            // Services
+            Object.entries(json.steam_services).forEach(([key, value]) => {
+                if (value === 200) {
+                    value = "online";
+                } else if (!isNaN(value)) {
+                    value = "HTTP Status Code " + value;
+                }
+
+                document.querySelector("#" + key).innerHTML = value;
+            });
+
+            Object.entries(json.csgo_services).forEach(([key, value]) => {
+                document.querySelector("#" + key).innerHTML = value;
+            });
+
+            // CS:GO servers
+            Object.entries(json.csgo_servers).forEach(([key, value]) => {
+                // Regex: Replace whitespaces with underscore
+                key = key.toLowerCase().replace(/\s+/g, "_");
+
+                document.querySelector("#" + key).innerHTML = value;
+            });
+        }).then(function() {
+            // Keywords to color the statuses differently
+            let goodStatus = ["idle", "low", "normal", "online"];
+            let okayStatus = ["delayed", "medium"];
+            let badStatus = ["high", "offline"];
+
+            // Color palette
+            let green = "#6C9541";
+            let blue = "#53A4C4";
+            let red = "#F44336";
+
+            // Set color for every status class member
+            // Reference: https://css-tricks.com/snippets/javascript/loop-queryselectorall-matches/
+            let statuses = document.querySelectorAll(".status");
+            [].forEach.call(statuses, function(status) {
+                let statusText = status.innerHTML;
+
+                if (goodStatus.includes(statusText)) {
+                    status.style.color = green;
+                } else if (okayStatus.includes(statusText)) {
+                    status.style.color = blue;
+                } else if (badStatus.includes(statusText)) {
+                    status.style.color = red;
+                }
+            });
+        }).catch(function(error) {
+            console.log(error);
+            //     var status = jqXHR.status;
+            //     var errmsg;
+            //     if (status !== 0) {
+            //         errmsg = "HTTP Status Code " + status + ": Check Flask for more details!";
+            //     } else {
+            //         errmsg = "Flask is not running!";
+            //     }
+            // let servermsg = document.querySelector("#servermsg");
+            // servermsg.addClass("alert-danger");
+            // servermsg.append(errmsg);
+            // servermsg.removeAttr("style");
+        });
+}
