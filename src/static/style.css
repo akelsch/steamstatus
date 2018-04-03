@@ -1,48 +1,18 @@
 body {
-  background: #1B2838;
-  color: #FFFFFF;
-  font-size: 16px;
-  padding-top: 2rem;
+    padding-top: 2rem;
+
+    color: white;
+    background: #1B2838;
 }
 
 header {
-  overflow: auto;
-}
-
-header .lead {
-  width: 67%;
-  float: left;
-}
-
-#update {
-  width: 33%;
-  float: right;
-  text-align: right;
-}
-
-main {
-  padding-top: 3rem;
+    overflow: auto;
 }
 
 .status-group {
-  background: #16212E;
-  border-radius: .5rem;
-}
+    height: 100%;
+    padding: 1rem;
 
-.status {
-  float: right;
-}
-
-.status-list {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.status-list hr {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.flag {
-  padding-right: 5px;
+    border-radius: 0.5rem;
+    background: #16212E;
 }
