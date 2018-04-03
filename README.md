@@ -1,12 +1,12 @@
 # steamstatus
 A simple &amp; open-source Steam monitoring service built with Flask.
 
-<img src="https://raw.githubusercontent.com/akelsch/steamstatus/master/readme.png" width="720">
+<img src="https://raw.githubusercontent.com/akelsch/steamstatus/master/screenshot.png" width="720">
 
 ## Dependencies
-This project is built with Flask. It is using Bootstrap 4 for the design and jQuery to consume the JSON served by Flask. See [requirements.txt](https://github.com/akelsch/steamstatus/blob/master/requirements.txt) for a complete list of Python packages.
+This project is using the JavaScript Fetch API to consume JSON served by Flask (see [requirements.txt](https://github.com/akelsch/steamstatus/blob/master/requirements.txt) for a complete list of Python packages). The design is made with Bootstrap 4.
 
-## Deployment (Unix / Mac)
+## Deployment (Unix & Mac)
 1. Clone the repository
 
         git clone https://github.com/akelsch/steamstatus.git
@@ -27,4 +27,4 @@ This project is built with Flask. It is using Bootstrap 4 for the design and jQu
         cd src
         flask run
 
-Note: Use three leading slashes for the database URI on Windows (see [SQLAlchemy docs](http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlite))
+Note: Use three instead of four leading slashes for the database URI on Windows (see [SQLAlchemy docs](http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlite)).
