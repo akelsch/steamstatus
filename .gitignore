@@ -1,3 +1,7 @@
+app.db
+python-wheels/
+
+### Python ###
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -45,6 +49,7 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
+.pytest_cache/
 
 # Translations
 *.mo
@@ -52,9 +57,8 @@ coverage.xml
 
 # Django stuff:
 *.log
-.static_storage/
-.media/
 local_settings.py
+db.sqlite3
 
 # Flask stuff:
 instance/
@@ -103,18 +107,15 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# virtualenv
-bin/
-Include/
-include/
-Lib/
-Scripts/
-tcl/
+
+### Virtualenv ###
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
 pip-selfcheck.json
-
-# IntelliJ
-.idea/
-*.iml
-
-# steamstatus
-/src/app.db
