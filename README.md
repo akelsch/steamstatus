@@ -20,11 +20,11 @@ This project is built with Flask. It is using Bootstrap 4 for the design and jQu
         export FLASK_APP=app.py
         export FLASK_DEBUG=1  // optional
 
-4. Insert your [Steam Web API Key](https://steamcommunity.com/dev/apikey) in app.py
+4. Insert your [Steam Web API Key](https://steamcommunity.com/dev/apikey) in app.py (search for APIKEY)
 
 5. Run the app
 
         cd src
         flask run
-        
-Note: Use four leading slashes with Unix/Mac for the database URI (see [SQLAlchemy docs](http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlite))
+
+Note: Use three leading slashes for the database URI on Windows (see [SQLAlchemy docs](http://docs.sqlalchemy.org/en/latest/core/engines.html#sqlite))
