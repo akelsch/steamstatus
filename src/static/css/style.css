@@ -1,0 +1,23 @@
+body {
+  padding-top: 2rem;
+
+  color: white;
+  background: #1b2838;
+}
+
+header {
+  overflow: auto;
+}
+
+.status-group {
+  height: 100%;
+  padding: 0.66rem 1.66rem;
+
+  border-radius: 0.5rem;
+  background: #16212e;
+}
+
+#servermsg {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
