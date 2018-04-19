@@ -13,7 +13,7 @@ This project is using the JavaScript Fetch API to consume JSON served by Flask (
 
 2. Create a virtual environment and install all required packages
 
-        virtualenv steamstatus && cd steamstatus && source bin/activate && pip install -r requirements.txt
+        python -m venv steamstatus && cd steamstatus && source bin/activate && pip install -r requirements.txt
 
 3. Set Flask environment variables
 
