@@ -11,10 +11,14 @@ header {
 
 .status-group {
   height: 100%;
-  padding: 0.66rem 1.66rem;
+  padding: 1rem 1.5rem;
 
   border-radius: 0.5rem;
   background: #16212e;
+}
+
+.status-group ul {
+  margin-bottom: 0;
 }
 
 #servermsg {
