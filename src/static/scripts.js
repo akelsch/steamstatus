@@ -25,6 +25,10 @@ function startLoop() {
 function fetchUpdate() {
     return fetch("status.json")
         .then(function(response) {
+            if (!response.ok) {
+                throw Error(response.status);
+            }
+
             return response.json();
         }).then(function(json) {
             // Online users
@@ -78,17 +82,17 @@ function fetchUpdate() {
                 }
             });
         }).catch(function(error) {
-            console.log(error);
-            //     var status = jqXHR.status;
-            //     var errmsg;
-            //     if (status !== 0) {
-            //         errmsg = "HTTP Status Code " + status + ": Check Flask for more details!";
-            //     } else {
-            //         errmsg = "Flask is not running!";
-            //     }
-            // let servermsg = document.querySelector("#servermsg");
-            // servermsg.addClass("alert-danger");
-            // servermsg.append(errmsg);
-            // servermsg.removeAttr("style");
+            let status = error.message;
+
+            let errmsg;
+            if (!isNaN(status)) {
+                errmsg = "HTTP Status Code " + status + ": Check Flask for more details!";
+            } else {
+                errmsg = "Flask is not running!";
+            }
+
+            let servermsg = document.querySelector("#servermsg");
+            servermsg.innerHTML = errmsg;
+            servermsg.removeAttribute("style");
         });
 }
