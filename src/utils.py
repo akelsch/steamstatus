@@ -21,7 +21,7 @@ def create_json(apikey):
     """
     Function to recreate the content of status.json from scratch.
 
-    :param apikey: your Steam Web API Key
+    :param apikey: your Steam Web API key
     :return: the new status.json contents
     """
     print("[INFO] Starting status update")
@@ -58,7 +58,7 @@ def fetch_all(apikey):
     """
     Fetches all the necessary data we need to build our status.json file.
 
-    :param apikey: your Steam Web API Key
+    :param apikey: your Steam Web API key
     :return: the fetched data
     """
     # Services

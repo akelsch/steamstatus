@@ -20,7 +20,7 @@ This project is using the JavaScript Fetch API to consume JSON served by Flask (
         export FLASK_APP=app.py
         export FLASK_DEBUG=1 // optional
 
-4. Insert your [Steam Web API Key](https://steamcommunity.com/dev/apikey) in configuration.py
+4. Insert your [Steam Web API key](https://steamcommunity.com/dev/apikey) in configuration.py
 
 5. Run the app
 
