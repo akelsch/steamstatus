@@ -11,7 +11,7 @@ function startLoop() {
             let secondCount = Math.floor((new Date() - start) / 1000);
             let remainingTime = x - secondCount;
 
-            document.querySelector("#seconds").innerHTML = remainingTime;
+            document.querySelector("#countdown").innerHTML = remainingTime;
 
             if (remainingTime <= 0) {
                 clearInterval(loop);
