@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="/static/css/style.css" rel="stylesheet">
 
-    <link rel="icon" href="/static/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-    <link rel="icon" href="/static/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link type="image/png" href="/static/img/favicons/favicon-32x32.png" rel="icon" sizes="32x32">
+    <link type="image/png" href="/static/img/favicons/favicon-16x16.png" rel="icon" sizes="16x16">
 
     <title>steamstatus</title>
   </head>
@@ -17,55 +17,54 @@
       <header>
         <h1>steamstatus</h1>
           <p class="float-left">A simple &amp; open-source Steam monitoring service built with Flask.</p>
-          <p id="update" class="float-right">Updating in <span id="seconds">45</span>s</p>
+          <p class="float-right">Updating in <span id="seconds">45</span>s</p>
       </header>
 
-      <div id="servermsg" class="alert alert-danger" role="alert" style="display: none;"></div>
+      <div class="alert alert-danger" id="servermsg" role="alert" style="display: none;"></div>
       <main class="row pt-4">
-        <div class="status-group col-md-5">
+        <div class="status-group col-md-5 mb-3 mr-auto">
           <h2>Services</h2>
           <ul class="list-unstyled pl-0">
-            <li>Online on Steam <span class="status float-right" id="steam_users"></span></li>
-            <li>Steam Store <span class="status float-right" id="store_status"></span></li>
-            <li>Steam Community <span class="status float-right" id="community_status"></span></li>
-            <li>Steam Web API <span class="status float-right" id="api_status"></span></li>
+            <li>Online on Steam <span class="status" id="online-users"></span></li>
+            <li>Steam Store <span class="status" id="store-status"></span></li>
+            <li>Steam Community <span class="status" id="community-status"></span></li>
+            <li>Steam Web API <span class="status" id="api-status"></span></li>
             <hr>
-            <li>CS:GO Sessions Logon <span class="status float-right" id="csgo_sessions_logon"></span></li>
-            <li>CS:GO Player Inventories <span class="status float-right" id="csgo_player_inventories"></span></li>
-            <li>CS:GO Matchmaking Scheduler <span class="status float-right" id="csgo_matchmaking_scheduler"></span></li>
+            <li>CS:GO Sessions Logon <span class="status" id="sessions-logon"></span></li>
+            <li>CS:GO Player Inventories <span class="status" id="player-inventories"></span></li>
+            <li>CS:GO Matchmaking Scheduler <span class="status" id="matchmaking-scheduler"></span></li>
           </ul>
         </div>
-        <div class="col-md-2"></div>
-        <div class="status-group col-md-5">
+        <div class="status-group col-md-5 ml-auto">
           <h2>CS:GO Servers</h2>
           <ul class="list-unstyled pl-0">
-            <li><img class="pr-2" src="/static/img/flags/eu.gif"> EU East <span class="status float-right" id="eu_east"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/eu.gif"> EU North <span class="status float-right" id="eu_north"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/eu.gif"> EU West <span class="status float-right" id="eu_west"></span></li>
+            <li><img src="/static/img/flags/eu.gif"> EU East <span class="status" id="eu-east"></span></li>
+            <li><img src="/static/img/flags/eu.gif"> EU North <span class="status" id="eu-north"></span></li>
+            <li><img src="/static/img/flags/eu.gif"> EU West <span class="status" id="eu-west"></span></li>
             <hr>
-            <li><img class="pr-2" src="/static/img/flags/us.gif"> US Northcentral <span class="status float-right" id="us_northcentral"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/us.gif"> US Northeast <span class="status float-right" id="us_northeast"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/us.gif"> US Northwest <span class="status float-right" id="us_northwest"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/us.gif"> US Southeast <span class="status float-right" id="us_southeast"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/us.gif"> US Southwest <span class="status float-right" id="us_southwest"></span></li>
+            <li><img src="/static/img/flags/us.gif"> US Northcentral <span class="status" id="us-northcentral"></span></li>
+            <li><img src="/static/img/flags/us.gif"> US Northeast <span class="status" id="us-northeast"></span></li>
+            <li><img src="/static/img/flags/us.gif"> US Northwest <span class="status" id="us-northwest"></span></li>
+            <li><img src="/static/img/flags/us.gif"> US Southeast <span class="status" id="us-southeast"></span></li>
+            <li><img src="/static/img/flags/us.gif"> US Southwest <span class="status" id="us-southwest"></span></li>
             <hr>
-            <li><img class="pr-2" src="/static/img/flags/cn.gif"> China Guangzhou <span class="status float-right" id="china_guangzhou"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/cn.gif"> China Shanghai <span class="status float-right" id="china_shanghai"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/cn.gif"> China Tianjin <span class="status float-right" id="china_tianjin"></span></li>
+            <li><img src="/static/img/flags/cn.gif"> China Guangzhou <span class="status" id="china-guangzhou"></span></li>
+            <li><img src="/static/img/flags/cn.gif"> China Shanghai <span class="status" id="china-shanghai"></span></li>
+            <li><img src="/static/img/flags/cn.gif"> China Tianjin <span class="status" id="china-tianjin"></span></li>
             <hr>
-            <li><img class="pr-2" src="/static/img/flags/au.gif"> Australia <span class="status float-right" id="australia"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/br.gif"> Brazil <span class="status float-right" id="brazil"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/cl.gif"> Chile <span class="status float-right" id="chile"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/ae.gif"> Emirates <span class="status float-right" id="emirates"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/hk.gif"> Hong Kong <span class="status float-right" id="hong_kong"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/in.gif"> India <span class="status float-right" id="india"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/in.gif"> India East <span class="status float-right" id="india_east"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/jp.gif"> Japan <span class="status float-right" id="japan"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/pe.gif"> Peru <span class="status float-right" id="peru"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/pl.gif"> Poland <span class="status float-right" id="poland"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/sg.gif"> Singapore <span class="status float-right" id="singapore"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/za.gif"> South Africa <span class="status float-right" id="south_africa"></span></li>
-            <li><img class="pr-2" src="/static/img/flags/es.gif"> Spain <span class="status float-right" id="spain"></span></li>
+            <li><img src="/static/img/flags/au.gif"> Australia <span class="status" id="australia"></span></li>
+            <li><img src="/static/img/flags/br.gif"> Brazil <span class="status" id="brazil"></span></li>
+            <li><img src="/static/img/flags/cl.gif"> Chile <span class="status" id="chile"></span></li>
+            <li><img src="/static/img/flags/ae.gif"> Emirates <span class="status" id="emirates"></span></li>
+            <li><img src="/static/img/flags/hk.gif"> Hong Kong <span class="status" id="hong-kong"></span></li>
+            <li><img src="/static/img/flags/in.gif"> India <span class="status" id="india"></span></li>
+            <li><img src="/static/img/flags/in.gif"> India East <span class="status" id="india-east"></span></li>
+            <li><img src="/static/img/flags/jp.gif"> Japan <span class="status" id="japan"></span></li>
+            <li><img src="/static/img/flags/pe.gif"> Peru <span class="status" id="peru"></span></li>
+            <li><img src="/static/img/flags/pl.gif"> Poland <span class="status" id="poland"></span></li>
+            <li><img src="/static/img/flags/sg.gif"> Singapore <span class="status" id="singapore"></span></li>
+            <li><img src="/static/img/flags/za.gif"> South Africa <span class="status" id="south-africa"></span></li>
+            <li><img src="/static/img/flags/es.gif"> Spain <span class="status" id="spain"></span></li>
           </ul>
         </div>
       </main>

@@ -6,15 +6,15 @@ function startLoop() {
     fetchUpdate().then(function() {
         const x = 45;
 
-        let start = new Date;
-        let interval = setInterval(function() {
-            let sum = Math.floor((new Date - start) / 1000);
-            let remaining = x - sum;
+        let start = new Date();
+        let loop = setInterval(function() {
+            let secondCount = Math.floor((new Date() - start) / 1000);
+            let remainingTime = x - secondCount;
 
-            document.querySelector("#seconds").innerHTML = remaining;
+            document.querySelector("#seconds").innerHTML = remainingTime;
 
-            if (remaining <= 0) {
-                clearInterval(interval);
+            if (remainingTime <= 0) {
+                clearInterval(loop);
                 startLoop();
             }
         }, 1000);
@@ -26,33 +26,38 @@ function fetchUpdate() {
     return fetch("status.json")
         .then(function(response) {
             if (!response.ok) {
+                // Pass HTTP status code in case of failure
                 throw Error(response.status);
             }
 
             return response.json();
         }).then(function(json) {
-            // Online users
-            document.querySelector("#steam_users").innerHTML = new Intl.NumberFormat().format(json.steam_users);
+            // ID: online-users
+            document.querySelector("#online-users").innerHTML = new Intl.NumberFormat().format(json.steam.online);
 
-            // Services
-            Object.entries(json.steam_services).forEach(([key, value]) => {
+            Object.entries(json.steam.services).forEach(([key, value]) => {
                 if (value === 200) {
                     value = "online";
                 } else if (!isNaN(value)) {
                     value = "HTTP Status Code " + value;
                 }
 
+                // IDs: store-status, community-status, api-status
+                key += "-status";
+
                 document.querySelector("#" + key).innerHTML = value;
             });
 
-            Object.entries(json.csgo_services).forEach(([key, value]) => {
+            Object.entries(json.csgo.services).forEach(([key, value]) => {
+                // IDs: sessions-logon, player-inventories, matchmaking-scheduler
+                key = key.replace(/_/g, "-");
+
                 document.querySelector("#" + key).innerHTML = value;
             });
 
-            // CS:GO servers
-            Object.entries(json.csgo_servers).forEach(([key, value]) => {
-                // Regex: Replace whitespaces with underscore
-                key = key.toLowerCase().replace(/\s+/g, "_");
+            Object.entries(json.csgo.servers).forEach(([key, value]) => {
+                // IDs: australia, brazil, chile, china-guangzhou...
+                key = key.toLowerCase().replace(/ /g, "-");
 
                 document.querySelector("#" + key).innerHTML = value;
             });
@@ -68,9 +73,7 @@ function fetchUpdate() {
             let red = "#F44336";
 
             // Set color for every status class member
-            // Reference: https://css-tricks.com/snippets/javascript/loop-queryselectorall-matches/
-            let statuses = document.querySelectorAll(".status");
-            [].forEach.call(statuses, function(status) {
+            document.querySelectorAll(".status").forEach(function(status) {
                 let statusText = status.innerHTML;
 
                 if (goodStatus.includes(statusText)) {
@@ -82,13 +85,15 @@ function fetchUpdate() {
                 }
             });
         }).catch(function(error) {
+            console.log(error);
+
             let status = error.message;
 
             let errmsg;
             if (!isNaN(status)) {
                 errmsg = "HTTP Status Code " + status + ": Check Flask for more details!";
             } else {
-                errmsg = "Flask is not running!";
+                errmsg = "Oops, something went wrong. Is Flask up and running?";
             }
 
             let servermsg = document.querySelector("#servermsg");

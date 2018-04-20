@@ -17,6 +17,20 @@ header {
   background: #16212e;
 }
 
+.status-group hr {
+  margin: 0.8rem 0;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.status-group ul li img {
+  padding-right: 0.5rem;
+}
+
+.status-group ul li span {
+  float: right;
+}
+
 .status-group ul {
   margin-bottom: 0;
 }
