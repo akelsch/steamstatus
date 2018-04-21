@@ -1,28 +1,37 @@
 // Start the loop once the document is loaded
 document.addEventListener("DOMContentLoaded", startLoop);
 
-// Call fetchUpdate() every x seconds
+/**
+ * Calls fetchUpdate() every x seconds.
+ */
 function startLoop() {
-    fetchUpdate().then(function() {
-        const x = 45;
+    const x = 45;
 
-        let start = new Date();
-        let loop = setInterval(function() {
-            let secondCount = Math.floor((new Date() - start) / 1000);
-            let remainingTime = x - secondCount;
+    fetchUpdate()
+        .then(function() {
+            let secondCount = 0;
 
-            document.querySelector("#countdown").innerHTML = remainingTime;
+            const loop = setInterval(function() {
+                secondCount++;
+                let remainingTime = x - secondCount;
 
-            if (remainingTime <= 0) {
-                clearInterval(loop);
-                startLoop();
-            }
-        }, 1000);
-    });
+                document.querySelector("#countdown").innerHTML = remainingTime;
+
+                if (remainingTime <= 0) {
+                    clearInterval(loop);
+                    startLoop();
+                }
+            }, 1000);
+        }).catch(function(error) {
+            // Reset the countdown
+            document.querySelector("#countdown").innerHTML = x;
+        });
 }
 
-// Run a single JSON fetch and update the document
-function fetchUpdate() {
+/**
+ * Runs a single JSON fetch and updates the document.
+ */
+async function fetchUpdate() {
     return fetch("status.json")
         .then(function(response) {
             if (!response.ok) {
@@ -63,18 +72,18 @@ function fetchUpdate() {
             });
         }).then(function() {
             // Keywords to color the statuses differently
-            let goodStatus = ["idle", "low", "normal", "online"];
-            let okayStatus = ["delayed", "medium"];
-            let badStatus = ["high", "offline"];
+            const goodStatus = ["idle", "low", "normal", "online"];
+            const okayStatus = ["delayed", "medium"];
+            const badStatus = ["high", "offline"];
 
             // Color palette
-            let green = "#6C9541";
-            let blue = "#53A4C4";
-            let red = "#F44336";
+            const green = "#6C9541";
+            const blue = "#53A4C4";
+            const red = "#F44336";
 
             // Set color for every status class member
             document.querySelectorAll(".status").forEach(function(status) {
-                let statusText = status.innerHTML;
+                const statusText = status.innerHTML;
 
                 if (goodStatus.includes(statusText)) {
                     status.style.color = green;
@@ -87,7 +96,7 @@ function fetchUpdate() {
         }).catch(function(error) {
             console.log(error);
 
-            let status = error.message;
+            const status = error.message;
 
             let errmsg;
             if (!isNaN(status)) {
@@ -96,8 +105,11 @@ function fetchUpdate() {
                 errmsg = "Oops, something went wrong. Is Flask up and running?";
             }
 
-            let servermsg = document.querySelector("#servermsg");
+            const servermsg = document.querySelector("#servermsg");
             servermsg.innerHTML = errmsg;
             servermsg.removeAttribute("style");
+
+            // Stop the loop
+            return Promise.reject();
         });
 }
