@@ -9,4 +9,4 @@ DB_FILE = "app.db"
 DB_LOCATION = os.path.join(BASEDIR, DB_FILE)
 
 # Database update frequency in seconds
-UPDATE_FREQUENCY = 10
+UPDATE_FREQUENCY = 60

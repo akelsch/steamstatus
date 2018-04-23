@@ -7,7 +7,7 @@ from configuration import DB_LOCATION, UPDATE_FREQUENCY
 # Flask
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + DB_LOCATION
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:////" + DB_LOCATION
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Database
