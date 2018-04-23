@@ -1,31 +1,34 @@
-import json
-import os
-from collections import OrderedDict
+from apscheduler.schedulers.background import BackgroundScheduler
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
-from flask import Flask, jsonify, render_template
+from configuration import DB_LOCATION, UPDATE_FREQUENCY
 
-from database import Status, db, create_table, update_database
-
+# Flask
 app = Flask(__name__)
-
-app.before_first_request_funcs = [create_table, update_database]
-
-basedir = os.path.abspath(os.path.dirname(__file__))
 app.config["JSON_SORT_KEYS"] = False
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "app.db")
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + DB_LOCATION
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db.init_app(app)
+# Database
+db = SQLAlchemy(app)
+
+# Scheduler
+scheduler = BackgroundScheduler()
+
+# Imports after app and db are initialized
+import views
+from utils import init_db, update_db
 
 
-@app.route("/")
-def index():
-    return render_template("index.html")
+@app.before_first_request
+def initialize_app():
+    # Run an update once at app start and start the scheduler afterwards
+    schedule_update()
+    scheduler.start()
 
 
-@app.route("/status.json", methods=["GET"])
-def status():
-    last_status = Status.query.order_by(Status.timestamp.desc()).limit(1).first()
-    decoder = json.JSONDecoder(object_pairs_hook=OrderedDict)
-
-    return jsonify(decoder.decode(last_status.json))
+@scheduler.scheduled_job("interval", seconds=UPDATE_FREQUENCY)
+def schedule_update():
+    init_db()
+    update_db()

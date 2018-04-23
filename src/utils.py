@@ -1,10 +1,15 @@
 import json
 import time
 from collections import OrderedDict
+from datetime import datetime
 from urllib.error import URLError, HTTPError
 from urllib.request import urlopen
 
 from flask import abort
+
+from app import db
+from configuration import APIKEY
+from models import Status
 
 # Constants
 STORE_URL = "https://store.steampowered.com/"
@@ -108,3 +113,21 @@ def fetch_json(url):
         abort(e.code, description="Did you remember to enter your Steam Web API key?")
     except URLError:
         abort(503, description="The Steam Web API can not be reached.")
+
+
+def init_db():
+    """
+    Function to create the status table.
+    This is useful when running the app for the first time.
+    """
+    if not db.engine.dialect.has_table(db.engine, "Status"):
+        db.create_all()
+
+
+def update_db():
+    """
+    Function to update the database.
+    """
+    new_status = Status(timestamp=datetime.utcnow(), json=json.dumps(create_json(APIKEY)))
+    db.session.add(new_status)
+    db.session.commit()
