@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header class="container">
+    <header class="container my-4">
         <h1>steamstatus</h1>
         <p class="float-left">A Steam monitoring service built with Flask</p>
         <p class="float-right">Updating in <span id="countdown">45</span>s</p>
@@ -21,32 +21,39 @@
 
     <div id="servermsg" class="alert alert-danger" role="alert" style="display: none;"></div>
 
-    <main class="container mt-5">
+    <main class="container my-4">
         <div class="row">
             <div class="col mr-3 status-group">
                 <h2>Services</h2>
                 <ul class="list-unstyled pl-0">
                     <li>
-                        Online on Steam <span id="online-users" class="status"></span>
+                        <a href="https://store.steampowered.com/stats/" target="_blank" rel="noopener noreferrer">Online Users</a>
+                        <span id="online-users" class="status"></span>
                     </li>
                     <li>
-                        Steam Store <span id="store-status" class="status"></span>
+                        Steam Store
+                        <span id="store-status" class="status"></span>
                     </li>
                     <li>
-                        Steam Community <span id="community-status" class="status"></span>
+                        Steam Community
+                        <span id="community-status" class="status"></span>
                     </li>
                     <li>
-                        Steam Web API <span id="api-status" class="status"></span>
+                        Steam Web API
+                        <span id="api-status" class="status"></span>
                     </li>
                     <hr>
                     <li>
-                        CS:GO Sessions Logon <span id="sessions-logon" class="status"></span>
+                        CS:GO Sessions Logon
+                        <span id="sessions-logon" class="status"></span>
                     </li>
                     <li>
-                        CS:GO Player Inventories <span id="player-inventories" class="status"></span>
+                        CS:GO Player Inventories
+                        <span id="player-inventories" class="status"></span>
                     </li>
                     <li>
-                        CS:GO Matchmaking Scheduler <span id="matchmaking-scheduler" class="status"></span>
+                        CS:GO Matchmaking Scheduler
+                        <span id="matchmaking-scheduler" class="status"></span>
                     </li>
                 </ul>
             </div>

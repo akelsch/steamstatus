@@ -1,6 +1,4 @@
 body {
-  padding-top: 2rem;
-
   color: white;
   background: #1b2838;
 }
@@ -9,12 +7,26 @@ header {
   overflow: auto;
 }
 
+a {
+  color: #2f89bc;
+}
+
+a:hover {
+  color: #66c0f4;
+  text-decoration: none;
+}
+
+#servermsg {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
 .status-group {
   height: 100%;
   padding: 1rem 1.5rem;
 
   border-radius: 0.5rem;
-  background: #16212e;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .status-group hr {
@@ -30,10 +42,5 @@ header {
 }
 
 .status-group ul {
-  margin-bottom: 0;
-}
-
-#servermsg {
-  margin-top: 0.5rem;
   margin-bottom: 0;
 }
