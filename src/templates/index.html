@@ -2,140 +2,164 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="/static/css/style.css" rel="stylesheet">
-
-    <link type="image/png" href="/static/img/favicons/favicon-32x32.png" rel="icon" sizes="32x32">
-    <link type="image/png" href="/static/img/favicons/favicon-16x16.png" rel="icon" sizes="16x16">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>steamstatus</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
     <div class="container">
         <header>
             <h1>steamstatus</h1>
-            <p class="float-left">A simple &amp; open-source Steam monitoring service built with Flask.</p>
+            <p class="float-left">A Steam monitoring service built with Flask</p>
             <p class="float-right">Updating in <span id="countdown">45</span>s</p>
         </header>
 
-        <div class="alert alert-danger" id="servermsg" role="alert" style="display: none;"></div>
+        <div id="servermsg" class="alert alert-danger" role="alert" style="display: none;"></div>
 
         <main class="row pt-4">
             <div class="status-group col-md-5 mr-auto mb-3">
                 <h2>Services</h2>
                 <ul class="list-unstyled pl-0">
                     <li>
-                        Online on Steam <span class="status" id="online-users"></span>
+                        Online on Steam <span id="online-users" class="status"></span>
                     </li>
                     <li>
-                        Steam Store <span class="status" id="store-status"></span>
+                        Steam Store <span id="store-status" class="status"></span>
                     </li>
                     <li>
-                        Steam Community <span class="status" id="community-status"></span>
+                        Steam Community <span id="community-status" class="status"></span>
                     </li>
                     <li>
-                        Steam Web API <span class="status" id="api-status"></span>
+                        Steam Web API <span id="api-status" class="status"></span>
                     </li>
                     <hr>
                     <li>
-                        CS:GO Sessions Logon <span class="status" id="sessions-logon"></span>
+                        CS:GO Sessions Logon <span id="sessions-logon" class="status"></span>
                     </li>
                     <li>
-                        CS:GO Player Inventories <span class="status" id="player-inventories"></span>
+                        CS:GO Player Inventories <span id="player-inventories" class="status"></span>
                     </li>
                     <li>
-                        CS:GO Matchmaking Scheduler <span class="status" id="matchmaking-scheduler"></span>
+                        CS:GO Matchmaking Scheduler <span id="matchmaking-scheduler" class="status"></span>
                     </li>
                 </ul>
             </div>
             <div class="status-group col-md-5 ml-auto">
                 <h2>CS:GO Servers</h2>
                 <ul class="list-unstyled pl-0">
+                    <!-- Group 1 -->
                     <li>
-                        <img src="/static/img/flags/eu.gif"> EU East <span class="status" id="eu-east"></span>
+                        <img src="/static/img/flags/eu.gif" alt="Flag of the European Union"> EU East
+                        <span id="eu-east" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/eu.gif"> EU North <span class="status" id="eu-north"></span>
+                        <img src="/static/img/flags/eu.gif" alt="Flag of the European Union"> EU North
+                        <span id="eu-north" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/eu.gif"> EU West <span class="status" id="eu-west"></span>
+                        <img src="/static/img/flags/eu.gif" alt="Flag of the European Union"> EU West
+                        <span id="eu-west" class="status"></span>
                     </li>
+                    <!-- Group 2 -->
                     <hr>
                     <li>
-                        <img src="/static/img/flags/us.gif"> US Northcentral <span class="status" id="us-northcentral"></span>
+                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Northcentral
+                        <span id="us-northcentral" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/us.gif"> US Northeast <span class="status" id="us-northeast"></span>
+                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Northeast
+                        <span id="us-northeast" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/us.gif"> US Northwest <span class="status" id="us-northwest"></span>
+                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Northwest
+                        <span id="us-northwest" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/us.gif"> US Southeast <span class="status" id="us-southeast"></span>
+                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Southeast
+                        <span id="us-southeast" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/us.gif"> US Southwest <span class="status" id="us-southwest"></span>
+                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Southwest
+                        <span id="us-southwest" class="status"></span>
                     </li>
+                    <!-- Group 3 -->
                     <hr>
                     <li>
-                        <img src="/static/img/flags/cn.gif"> China Guangzhou <span class="status" id="china-guangzhou"></span>
+                        <img src="/static/img/flags/cn.gif" alt="Flag of China"> China Guangzhou
+                        <span id="china-guangzhou" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/cn.gif"> China Shanghai <span class="status" id="china-shanghai"></span>
+                        <img src="/static/img/flags/cn.gif" alt="Flag of China"> China Shanghai
+                        <span id="china-shanghai" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/cn.gif"> China Tianjin <span class="status" id="china-tianjin"></span>
+                        <img src="/static/img/flags/cn.gif" alt="Flag of China"> China Tianjin
+                        <span id="china-tianjin" class="status"></span>
                     </li>
+                    <!-- Group 4 -->
                     <hr>
                     <li>
-                        <img src="/static/img/flags/au.gif"> Australia <span class="status" id="australia"></span>
+                        <img src="/static/img/flags/au.gif" alt="Flag of Australia"> Australia
+                        <span id="australia" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/br.gif"> Brazil <span class="status" id="brazil"></span>
+                        <img src="/static/img/flags/br.gif" alt="Flag of Brazil"> Brazil
+                        <span id="brazil" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/cl.gif"> Chile <span class="status" id="chile"></span>
+                        <img src="/static/img/flags/cl.gif" alt="Flag of Chile"> Chile
+                        <span id="chile" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/ae.gif"> Emirates <span class="status" id="emirates"></span>
+                        <img src="/static/img/flags/ae.gif" alt="Flag of the Emirates"> Emirates
+                        <span id="emirates" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/hk.gif"> Hong Kong <span class="status" id="hong-kong"></span>
+                        <img src="/static/img/flags/hk.gif" alt="Flag of Hong Kong"> Hong Kong
+                        <span id="hong-kong" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/in.gif"> India <span class="status" id="india"></span>
+                        <img src="/static/img/flags/in.gif" alt="Flag of India"> India
+                        <span id="india" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/in.gif"> India East <span class="status" id="india-east"></span>
+                        <img src="/static/img/flags/in.gif" alt="Flag of India"> India East
+                        <span id="india-east" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/jp.gif"> Japan <span class="status" id="japan"></span>
+                        <img src="/static/img/flags/jp.gif" alt="Flag of Japan"> Japan
+                        <span id="japan" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/pe.gif"> Peru <span class="status" id="peru"></span>
+                        <img src="/static/img/flags/pe.gif" alt="Flag of Peru"> Peru
+                        <span id="peru" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/pl.gif"> Poland <span class="status" id="poland"></span>
+                        <img src="/static/img/flags/pl.gif" alt="Flag of Poland"> Poland
+                        <span id="poland" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/sg.gif"> Singapore <span class="status" id="singapore"></span>
+                        <img src="/static/img/flags/sg.gif" alt="Flag of Singapore"> Singapore
+                        <span id="singapore" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/za.gif"> South Africa <span class="status" id="south-africa"></span>
+                        <img src="/static/img/flags/za.gif" alt="Flag of South Africa"> South Africa
+                        <span id="south-africa" class="status"></span>
                     </li>
                     <li>
-                        <img src="/static/img/flags/es.gif"> Spain <span class="status" id="spain"></span>
+                        <img src="/static/img/flags/es.gif" alt="Flag of Spain"> Spain
+                        <span id="spain" class="status"></span>
                     </li>
                 </ul>
             </div>
         </main>
     </div>
-
     <script src="/static/js/functions.js"></script>
 </body>
 
