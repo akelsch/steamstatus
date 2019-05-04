@@ -13,17 +13,17 @@
 </head>
 
 <body>
-    <div class="container">
-        <header>
-            <h1>steamstatus</h1>
-            <p class="float-left">A Steam monitoring service built with Flask</p>
-            <p class="float-right">Updating in <span id="countdown">45</span>s</p>
-        </header>
+    <header class="container">
+        <h1>steamstatus</h1>
+        <p class="float-left">A Steam monitoring service built with Flask</p>
+        <p class="float-right">Updating in <span id="countdown">45</span>s</p>
+    </header>
 
-        <div id="servermsg" class="alert alert-danger" role="alert" style="display: none;"></div>
+    <div id="servermsg" class="alert alert-danger" role="alert" style="display: none;"></div>
 
-        <main class="row pt-4">
-            <div class="status-group col-md-5 mr-auto mb-3">
+    <main class="container mt-5">
+        <div class="row">
+            <div class="col mr-3 status-group">
                 <h2>Services</h2>
                 <ul class="list-unstyled pl-0">
                     <li>
@@ -50,7 +50,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="status-group col-md-5 ml-auto">
+            <div class="col ml-3 status-group">
                 <h2>CS:GO Servers</h2>
                 <ul class="list-unstyled pl-0">
                     <!-- Group 1 -->
@@ -158,8 +158,9 @@
                     </li>
                 </ul>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
+
     <script src="/static/js/scripts.js"></script>
 </body>
 
