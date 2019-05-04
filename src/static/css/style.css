@@ -26,21 +26,17 @@ hr {
 }
 
 .status-group {
-  height: 100%;
-  padding: 1rem 1.5rem;
-
-  border-radius: 0.5rem;
   background: rgba(0, 0, 0, 0.4);
 }
 
-.status-group ul li img {
-  padding-right: 0.5rem;
-}
-
-.status-group ul li span {
-  float: right;
-}
-
-.status-group ul {
+.status-group > ul {
   margin-bottom: 0;
+}
+
+.status-group > ul > li > img {
+  margin-right: 0.5rem;
+}
+
+.status {
+  float: right;
 }
