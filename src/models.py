@@ -1,11 +1,12 @@
+from datetime import datetime
+
 from app import db
 
 
 class Status(db.Model):
-    __tablename__ = "Status"
-
-    timestamp = db.Column(db.DateTime, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     json = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
-        return "<Status {}>".format(self.timestamp)
+        return "<Status(id={}, timestamp={})>".format(self.id, self.timestamp)
