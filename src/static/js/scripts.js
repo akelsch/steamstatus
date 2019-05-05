@@ -29,8 +29,7 @@ function countdown() {
 
 function handleData(data) {
     // Online Users
-    let onlineUsers = new Intl.NumberFormat().format(data.steam.online);
-    document.getElementById("online-users").textContent = onlineUsers;
+    document.getElementById("online-users").textContent = data.steam.online.toLocaleString();
 
     // Services I
     Object.entries(data.steam.services).forEach(([key, value]) => {
@@ -65,7 +64,7 @@ function handleError(error) {
     clearInterval(intervalId);
 
     // Display error message
-    let serverMessage = document.getElementById("server-message");
+    const serverMessage = document.getElementById("server-message");
     serverMessage.textContent = "Oops, something went wrong. Is Flask up and running?";
     serverMessage.removeAttribute("style");
 }
