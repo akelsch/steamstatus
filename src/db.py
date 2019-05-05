@@ -2,7 +2,7 @@ import json
 
 from app import db
 from models import Status
-from utils import create_json
+from status import create_json
 
 
 def init_db():

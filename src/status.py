@@ -32,29 +32,32 @@ def create_json():
     steam_json = get_json(ONLINE_USERS_URL)
     csgo_json = get_json(CSGO_URL)
 
-    final_json = OrderedDict()
-    final_json["steam"] = OrderedDict()
-    final_json["steam"]["online"] = steam_json["response"]["player_count"]
+    # TODO find a better way to do this
+    status = OrderedDict()
+    status["steam"] = OrderedDict()
+    status["steam"]["services"] = OrderedDict()
+    status["csgo"] = OrderedDict()
+    status["csgo"]["services"] = OrderedDict()
+    status["csgo"]["servers"] = OrderedDict()
 
-    final_json["steam"]["services"] = OrderedDict()
-    final_json["steam"]["services"]["store"] = get_status_code(STORE_URL)
-    final_json["steam"]["services"]["community"] = get_status_code(COMMUNITY_URL)
-    final_json["steam"]["services"]["api"] = get_status_code(API_URL)
+    # Services
+    status["steam"]["online"] = steam_json["response"]["player_count"]
+    status["steam"]["services"]["store"] = get_status_code(STORE_URL)
+    status["steam"]["services"]["community"] = get_status_code(COMMUNITY_URL)
+    status["steam"]["services"]["api"] = get_status_code(API_URL)
 
-    final_json["csgo"] = OrderedDict()
-    final_json["csgo"]["services"] = OrderedDict()
-    final_json["csgo"]["services"]["sessions_logon"] = csgo_json["result"]["services"]["SessionsLogon"]
-    final_json["csgo"]["services"]["player_inventories"] = csgo_json["result"]["services"]["SteamCommunity"]
-    final_json["csgo"]["services"]["matchmaking_scheduler"] = csgo_json["result"]["matchmaking"]["scheduler"]
+    # CS:GO Servers
+    status["csgo"]["services"]["sessions_logon"] = csgo_json["result"]["services"]["SessionsLogon"]
+    status["csgo"]["services"]["player_inventories"] = csgo_json["result"]["services"]["SteamCommunity"]
+    status["csgo"]["services"]["matchmaking_scheduler"] = csgo_json["result"]["matchmaking"]["scheduler"]
 
-    final_json["csgo"]["servers"] = OrderedDict()
     for location in LOCATIONS:
-        final_json["csgo"]["servers"][location] = csgo_json["result"]["datacenters"][location]["load"]
+        status["csgo"]["servers"][location] = csgo_json["result"]["datacenters"][location]["load"]
 
     end = time.time()
     print("Finished update in {:.2f} seconds!".format(end - start))
 
-    return final_json
+    return status
 
 
 def get_json(url):
