@@ -1,37 +1,39 @@
 body {
-  color: white;
-  background: #1b2838;
+    color: white;
+    background: #1b2838;
 }
 
 header {
-  overflow: auto;
+    overflow: auto;
 }
 
 a {
-  color: #2f89bc;
+    color: #2f89bc;
 }
 
 a:hover {
-  color: #66c0f4;
-  text-decoration: none;
+    text-decoration: none;
+
+    color: #66c0f4;
 }
 
 hr {
-  border-top: 1px solid #29363d;
+    border-top: 1px solid #29363d;
 }
 
 .status-group {
-  background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .status-group > ul {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .status-group > ul > li > img {
-  margin-right: 0.5rem;
+    /* Equals mr-2 */
+    margin-right: 0.5rem;
 }
 
 .status {
-  float: right;
+    float: right;
 }
