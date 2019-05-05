@@ -61,8 +61,6 @@ $env:FLASK_ENV = "development"
 
 Please note that running scripts in PowerShell requires changing your execution policy to `Unrestricted` (see [Set-ExecutionPolicy](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-6)).
 
-You will also need to use three instead of four leading slashes for the database URI (see [SQLAlchemy docs](https://docs.sqlalchemy.org/en/13/core/engines.html#sqlite)).
-
 ## Acknowledgments
 
 Flag icons by [Mark James](http://www.famfamfam.com/lab/icons/flags/)
