@@ -26,7 +26,7 @@ def create_json():
     """
     Creates status.json from scratch.
     """
-    print("Starting status update")
+    print("Starting status.json update...")
     start = time.time()
 
     steam_json = get_json(ONLINE_USERS_URL)
@@ -52,7 +52,7 @@ def create_json():
         final_json["csgo"]["servers"][location] = csgo_json["result"]["datacenters"][location]["load"]
 
     end = time.time()
-    print("Finished status update in {:.2f} seconds".format(end - start))
+    print("Finished update in {:.2f} seconds!".format(end - start))
 
     return final_json
 

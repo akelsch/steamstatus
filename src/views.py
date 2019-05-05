@@ -1,5 +1,4 @@
 import json
-from collections import OrderedDict
 
 from flask import jsonify, render_template
 
@@ -15,6 +14,4 @@ def index():
 @app.route("/status.json")
 def status():
     latest_status = Status.query.order_by(Status.id.desc()).first()
-    decoder = json.JSONDecoder(object_pairs_hook=OrderedDict)
-
-    return jsonify(decoder.decode(latest_status.json))
+    return jsonify(json.loads(latest_status.json))
