@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 
 from app import db
-from configuration import APIKEY
+from config import API_KEY
 from models import Status
 from utils import create_json
 
@@ -13,6 +13,6 @@ def init_db():
 
 
 def update_db():
-    new_status = Status(timestamp=datetime.utcnow(), json=json.dumps(create_json(APIKEY)))
+    new_status = Status(timestamp=datetime.utcnow(), json=json.dumps(create_json(API_KEY)))
     db.session.add(new_status)
     db.session.commit()

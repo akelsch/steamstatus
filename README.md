@@ -2,7 +2,7 @@
 
 A Steam monitoring service built with Flask
 
-<img src="https://raw.githubusercontent.com/akelsch/steamstatus/master/screenshot.png" width="720">
+<img src="screenshot.png" width="720">
 
 ## Requirements
 
@@ -26,9 +26,14 @@ A Steam monitoring service built with Flask
     pip install -r requirements.txt
     ```
 
-    See [`requirements.txt`](https://github.com/akelsch/steamstatus/blob/master/requirements.txt) for a complete list of required packages.
+    See [`requirements.txt`](requirements.txt) for a complete list of required packages.
 
-3. **Insert your [Steam Web API key](https://steamcommunity.com/dev/apikey) in configuration.py**
+3. Insert your **[Steam API key](https://steamcommunity.com/dev/apikey)** in [`config.py`](src/config.py)
+
+    ```Python
+    API_KEY = "" # insert your key here, e.g. 204BE844F017F63E40E2F3D820EB8E9E
+    UPDATE_FREQUENCY = 60
+    ```
 
 4. Set Flask environment variables
 

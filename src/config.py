@@ -1,2 +1,2 @@
-APIKEY = ""
+API_KEY = ""
 UPDATE_FREQUENCY = 60
