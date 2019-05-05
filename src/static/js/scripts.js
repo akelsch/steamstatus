@@ -1,4 +1,5 @@
 const COUNTDOWN_DURATION = 45;
+let intervalId;
 
 // Start update loop once the document is loaded
 document.addEventListener("DOMContentLoaded", () => updateData().then(countdown));
@@ -16,7 +17,7 @@ async function updateData() {
 function countdown() {
     let seconds = COUNTDOWN_DURATION;
 
-    let interval = setInterval(() => {
+    intervalId = setInterval(() => {
         document.getElementById("countdown").textContent = seconds;
 
         if (--seconds < 0) {
@@ -28,7 +29,7 @@ function countdown() {
 
 function handleData(data) {
     // Online Users
-    let onlineUsers = new Intl.NumberFormat().format(data.steam.online)
+    let onlineUsers = new Intl.NumberFormat().format(data.steam.online);
     document.getElementById("online-users").textContent = onlineUsers;
 
     // Services I
@@ -60,11 +61,13 @@ function handleData(data) {
 }
 
 function handleError(error) {
+    // Clear countdown interval
+    clearInterval(intervalId);
+
+    // Display error message
     let serverMessage = document.getElementById("server-message");
     serverMessage.textContent = "Oops, something went wrong. Is Flask up and running?";
     serverMessage.removeAttribute("style");
-
-    // TODO Stop countdown loop
 }
 
 function highlightData() {
