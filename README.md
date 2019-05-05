@@ -4,17 +4,22 @@ A Steam monitoring service built with Flask
 
 <img src="https://raw.githubusercontent.com/akelsch/steamstatus/master/screenshot.png" width="720">
 
+## Requirements
+
+- Python 3.4+
+- A modern browser
+
 ## Installation: Linux & macOS
 
 1. Clone the repository
 
-    ```shell
+    ```Shell
     git clone https://github.com/akelsch/steamstatus.git
     ```
 
 2. Create a virtual environment and install all required packages
 
-    ```shell
+    ```Shell
     cd steamstatus && python -m venv venv
     source venv/bin/activate && pip install -r requirements.txt
     ```
@@ -23,7 +28,7 @@ A Steam monitoring service built with Flask
 
 3. Set Flask environment variables
 
-    ```shell
+    ```Shell
     export FLASK_APP=app.py
     export FLASK_DEBUG=1 # optional
     ```
@@ -32,7 +37,7 @@ A Steam monitoring service built with Flask
 
 5. Run the app
 
-    ```shell
+    ```Shell
     cd src
     flask run
     ```
