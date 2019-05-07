@@ -9,7 +9,7 @@ A Steam monitoring service built with Flask
 - Python 3.4+
 - A modern browser supporting [async functions](https://caniuse.com/#feat=async-functions)
 
-## Installation: Linux & macOS
+## Getting Started
 
 1. Clone the repository
 
@@ -28,7 +28,7 @@ A Steam monitoring service built with Flask
 
     See [`requirements.txt`](requirements.txt) for a complete list of required packages.
 
-3. Insert your **[Steam API key](https://steamcommunity.com/dev/apikey)** in [`config.py`](src/config.py)
+3. Insert your [Steam API key](https://steamcommunity.com/dev/apikey) in [`config.py`](src/config.py)
 
     ```Python
     API_KEY = "" # insert your key here, e.g. 204BE844F017F63E40E2F3D820EB8E9E
@@ -42,14 +42,15 @@ A Steam monitoring service built with Flask
     export FLASK_ENV=development # optional
     ```
 
-5. Run the app
+5. Initialize the database and run the app
 
     ```Shell
     cd src
+    flask init-db
     flask run
     ```
 
-## Installation: Windows
+### Using Windows
 
 PowerShell commands differ quite a bit from Bash so here are some equivalent commands:
 
