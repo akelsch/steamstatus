@@ -4,8 +4,8 @@ from flask import jsonify, render_template
 
 from app import app, db, scheduler
 from config import UPDATE_FREQUENCY
+from core import create_json
 from models import Status
-from status import create_json
 
 
 def update_status():
