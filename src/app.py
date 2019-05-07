@@ -19,6 +19,10 @@ app.config.from_mapping(
     SQLALCHEMY_TRACK_MODIFICATIONS=False
 )
 
+# Ensure API key is set
+if not API_KEY:
+    raise Exception("Missing Steam API key in config.py")
+
 db = SQLAlchemy(app)
 scheduler = BackgroundScheduler()
 
@@ -28,10 +32,6 @@ from db import init_db, update_db
 
 @app.before_first_request
 def init_app():
-    # Ensure API key is set
-    if not API_KEY:
-        raise Exception("Missing Steam API key in config.py")
-
     # Initialize database
     init_db()
     update_db()
