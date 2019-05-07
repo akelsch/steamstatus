@@ -3,6 +3,7 @@ from collections import OrderedDict
 
 import requests
 
+from app import app
 from config import API_KEY
 
 ONLINE_USERS_URL = "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=0"
@@ -23,10 +24,8 @@ LOCATIONS = [
 
 
 def create_json():
-    """
-    Creates status.json from scratch.
-    """
-    print("Starting status.json update...")
+    """Creates status.json from scratch."""
+    app.logger.info("Starting status.json update")
     start = time.time()
 
     steam_json = get_json(ONLINE_USERS_URL)
@@ -55,23 +54,19 @@ def create_json():
         status["csgo"]["servers"][location] = csgo_json["result"]["datacenters"][location]["load"]
 
     end = time.time()
-    print("Finished update in {:.2f} seconds!".format(end - start))
+    app.logger.info("Finished update in %.2f seconds", end - start)
 
     return status
 
 
 def get_json(url):
-    """
-    Makes a request to a given URL and returns its JSON contents.
-    """
+    """Makes a request to a given URL and returns the response JSON data."""
     response = requests.get(url)
     return response.json()
 
 
 def get_status_code(url):
-    """
-    Makes a request to a given URL and returns its status code.
-    """
+    """Makes a request to a given URL and returns the response status code."""
     try:
         response = requests.get(url)
     except requests.exceptions.RequestException as e:
