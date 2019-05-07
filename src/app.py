@@ -1,7 +1,9 @@
 import os
 
+import click
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask
+from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
 
 from config import API_KEY, UPDATE_FREQUENCY
@@ -27,15 +29,28 @@ db = SQLAlchemy(app)
 scheduler = BackgroundScheduler()
 
 import views
-from db import init_db, update_db
+from db import update_db
 
 
 @app.before_first_request
 def init_app():
-    # Initialize database
-    init_db()
+    # Update once & start scheduler
     update_db()
-
-    # Start scheduler
     scheduler.add_job(update_db, "interval", seconds=UPDATE_FREQUENCY)
     scheduler.start()
+
+
+def init_db():
+    db.drop_all()
+    db.create_all()
+
+
+@click.command("init-db")
+@with_appcontext
+def init_db_command():
+    """Clear existing data and create new tables."""
+    init_db()
+    click.echo("Initialized the database.")
+
+
+app.cli.add_command(init_db_command)
