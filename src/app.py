@@ -6,7 +6,7 @@ from flask import Flask
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
 
-from config import API_KEY, UPDATE_FREQUENCY
+from config import API_KEY
 
 app = Flask(__name__)
 
@@ -28,16 +28,7 @@ if not API_KEY:
 db = SQLAlchemy(app)
 scheduler = BackgroundScheduler()
 
-import views
-from db import update_db
-
-
-@app.before_first_request
-def init_app():
-    # Update once & start scheduler
-    update_db()
-    scheduler.add_job(update_db, "interval", seconds=UPDATE_FREQUENCY)
-    scheduler.start()
+import views  # isort:skip
 
 
 def init_db():

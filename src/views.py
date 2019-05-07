@@ -2,8 +2,24 @@ import json
 
 from flask import jsonify, render_template
 
-from app import app
+from app import app, db, scheduler
+from config import UPDATE_FREQUENCY
 from models import Status
+from status import create_json
+
+
+def update_status():
+    new_status = Status(json=json.dumps(create_json()))
+    db.session.add(new_status)
+    db.session.commit()
+
+
+@app.before_first_request
+def init():
+    # Update once & start scheduler
+    update_status()
+    scheduler.add_job(update_status, "interval", seconds=UPDATE_FREQUENCY)
+    scheduler.start()
 
 
 @app.route("/")
