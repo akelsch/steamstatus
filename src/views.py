@@ -1,5 +1,3 @@
-import json
-
 from flask import jsonify, render_template
 
 from app import app, db, scheduler
@@ -9,7 +7,7 @@ from models import Status
 
 
 def update_status():
-    new_status = Status(json=json.dumps(create_json()))
+    new_status = Status(data=create_json())
     db.session.add(new_status)
     db.session.commit()
 
@@ -30,4 +28,4 @@ def index():
 @app.route("/status.json")
 def status():
     latest_status = Status.query.order_by(Status.id.desc()).first()
-    return jsonify(json.loads(latest_status.json))
+    return jsonify(latest_status.data)
