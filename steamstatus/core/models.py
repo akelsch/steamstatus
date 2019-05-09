@@ -25,7 +25,7 @@ class Region():
 class Flag():
     def __init__(self, name, img, plural=False):
         self.name = name
-        self.img = img
+        self.img = "img/flags/{}.gif".format(img)
         self.plural = plural
 
     def __repr__(self):
