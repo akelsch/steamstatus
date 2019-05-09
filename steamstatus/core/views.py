@@ -1,9 +1,9 @@
 from flask import jsonify, render_template
 
-from app import app, db, scheduler
-from config import UPDATE_FREQUENCY
-from core import create_json
-from models import Flag, Region, Status
+from steamstatus import app, db, scheduler
+from steamstatus.config import UPDATE_FREQUENCY
+from steamstatus.core import create_json
+from steamstatus.core.models import Flag, Region, Status
 
 
 def update_status():

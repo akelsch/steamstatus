@@ -6,7 +6,7 @@ from flask import Flask
 from flask.cli import with_appcontext
 from flask_sqlalchemy import SQLAlchemy
 
-from config import API_KEY
+from steamstatus.config import API_KEY
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ if not API_KEY:
 db = SQLAlchemy(app)
 scheduler = BackgroundScheduler()
 
-import views  # isort:skip
+import steamstatus.core.views  # isort:skip
 
 
 def init_db():

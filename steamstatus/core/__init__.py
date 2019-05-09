@@ -3,8 +3,8 @@ from collections import OrderedDict
 
 import requests
 
-from app import app
-from config import API_KEY
+from steamstatus import app
+from steamstatus.config import API_KEY
 
 ONLINE_USERS_URL = "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=0"
 STORE_URL = "https://store.steampowered.com/"
