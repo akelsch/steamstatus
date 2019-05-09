@@ -11,16 +11,6 @@ STORE_URL = "https://store.steampowered.com/"
 COMMUNITY_URL = "https://steamcommunity.com/"
 API_URL = "https://api.steampowered.com/ISteamWebAPIUtil/GetServerInfo/v1/"
 CSGO_URL = "https://api.steampowered.com/ICSGOServers_730/GetGameServersStatus/v1/?key=" + API_KEY
-LOCATIONS = [
-    "Australia", "Brazil", "Chile",
-    "China Guangzhou", "China Shanghai", "China Tianjin",
-    "Emirates", "EU East", "EU North",
-    "EU West", "Hong Kong", "India",
-    "India East", "Japan", "Peru",
-    "Poland", "Singapore", "South Africa",
-    "Spain", "US Northcentral", "US Northeast",
-    "US Northwest", "US Southeast", "US Southwest"
-]
 
 
 def create_json():
@@ -50,7 +40,7 @@ def create_json():
     status["csgo"]["services"]["player_inventories"] = csgo_json["result"]["services"]["SteamCommunity"]
     status["csgo"]["services"]["matchmaking_scheduler"] = csgo_json["result"]["matchmaking"]["scheduler"]
 
-    for location in LOCATIONS:
+    for location in csgo_json["result"]["datacenters"]:
         status["csgo"]["servers"][location] = csgo_json["result"]["datacenters"][location]["load"]
 
     end = time.time()
