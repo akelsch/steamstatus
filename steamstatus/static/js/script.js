@@ -1,18 +1,7 @@
 const COUNTDOWN_DURATION = 45;
 let intervalId;
 
-// Start update loop once the document is loaded
-document.addEventListener("DOMContentLoaded", () => updateData().then(countdown));
-
-async function updateData() {
-    try {
-        const response = await fetch("status.json");
-        const data = await response.json();
-        return handleData(data);
-    } catch (error) {
-        return handleError(error);
-    }
-}
+document.addEventListener("DOMContentLoaded", () => updateDocument().then(countdown));
 
 function countdown() {
     let seconds = COUNTDOWN_DURATION;
@@ -22,9 +11,17 @@ function countdown() {
 
         if (--seconds < 0) {
             seconds = COUNTDOWN_DURATION;
-            updateData();
+            updateDocument();
         }
     }, 1000);
+}
+
+async function updateDocument() {
+    fetch("status.json")
+        .then(response => response.json())
+        .then(data => handleData(data))
+        .catch(error => handleError(error))
+        .then(highlightDocument);
 }
 
 function handleData(data) {
@@ -45,12 +42,10 @@ function handleData(data) {
         key = key.toLowerCase().replace(/ /g, "-");
         document.getElementById(key).textContent = value;
     });
-
-    highlightData();
 }
 
 function handleError(error) {
-    // Clear countdown interval
+    // Reset countdown
     clearInterval(intervalId);
 
     // Display error message
@@ -59,7 +54,7 @@ function handleError(error) {
     serverMessage.removeAttribute("style");
 }
 
-function highlightData() {
+function highlightDocument() {
     const statuses = {
         bad: {
             color: "#F44336", // red
