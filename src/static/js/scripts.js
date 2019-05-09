@@ -36,8 +36,8 @@ function handleData(data) {
         key += "-status";
 
         if (value === 200) {
-            value = "online";
-        } else if (!isNaN(value)) {
+            value = "Normal";
+        } else {
             value = "HTTP Status Code " + value;
         }
 
@@ -70,26 +70,31 @@ function handleError(error) {
 }
 
 function highlightData() {
-    // Color palette
-    const green = "#6C9541";
-    const blue = "#53A4C4";
-    const red = "#F44336";
-
-    // Keywords to color statuses differently
-    const goodStatus = ["idle", "low", "normal", "online"];
-    const okayStatus = ["delayed", "medium"];
-    const badStatus = ["high", "offline"];
+    const statuses = {
+        bad: {
+            color: "#F44336", // red
+            keywords: ["Offline", "High"]
+        },
+        okay: {
+            color: "#53A4C4", // blue
+            keywords: ["Delayed", "Medium"],
+        },
+        good: {
+            color: "#6C9541", // green
+            keywords: ["Idle", "Normal", "Low"]
+        }
+    }
 
     // Set color for every status class member
     document.querySelectorAll(".status").forEach(status => {
         const statusText = status.textContent;
 
-        if (goodStatus.includes(statusText)) {
-            status.style.color = green;
-        } else if (okayStatus.includes(statusText)) {
-            status.style.color = blue;
-        } else if (badStatus.includes(statusText)) {
-            status.style.color = red;
+        if (statuses.bad.keywords.includes(statusText)) {
+            status.style.color = statuses.bad.color;
+        } else if (statuses.okay.keywords.includes(statusText)) {
+            status.style.color = statuses.okay.color;
+        } else if (statuses.good.keywords.includes(statusText)) {
+            status.style.color = statuses.good.color;
         }
     });
 }

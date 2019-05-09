@@ -36,12 +36,12 @@ def create_json():
     status["steam"]["services"]["api"] = get_status_code(API_URL)
 
     # CS:GO Servers
-    status["csgo"]["services"]["sessions_logon"] = csgo_json["result"]["services"]["SessionsLogon"]
-    status["csgo"]["services"]["player_inventories"] = csgo_json["result"]["services"]["SteamCommunity"]
-    status["csgo"]["services"]["matchmaking_scheduler"] = csgo_json["result"]["matchmaking"]["scheduler"]
+    status["csgo"]["services"]["sessions_logon"] = csgo_json["result"]["services"]["SessionsLogon"].capitalize()
+    status["csgo"]["services"]["player_inventories"] = csgo_json["result"]["services"]["SteamCommunity"].capitalize()
+    status["csgo"]["services"]["matchmaking_scheduler"] = csgo_json["result"]["matchmaking"]["scheduler"].capitalize()
 
     for location in csgo_json["result"]["datacenters"]:
-        status["csgo"]["servers"][location] = csgo_json["result"]["datacenters"][location]["load"]
+        status["csgo"]["servers"][location] = csgo_json["result"]["datacenters"][location]["load"].capitalize()
 
     end = time.time()
     app.logger.info("Finished update in %.2f seconds", end - start)
@@ -60,6 +60,6 @@ def get_status_code(url):
     try:
         response = requests.get(url)
     except requests.exceptions.RequestException as e:
-        return "offline"
+        return 503
 
     return response.status_code
