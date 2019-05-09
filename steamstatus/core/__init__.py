@@ -1,9 +1,7 @@
-import time
 from collections import OrderedDict
 
 import requests
 
-from steamstatus import app
 from steamstatus.config import API_KEY
 
 ONLINE_USERS_URL = "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=0"
@@ -13,11 +11,8 @@ WEB_API_URL = "https://api.steampowered.com/ISteamWebAPIUtil/GetServerInfo/v1/"
 CSGO_URL = "https://api.steampowered.com/ICSGOServers_730/GetGameServersStatus/v1/?key=" + API_KEY
 
 
-def create_json():
+def create_new_status():
     """Creates status.json from scratch."""
-    app.logger.info("Starting status.json update")
-    start = time.time()
-
     # TODO find a better way to do this
     status = OrderedDict()
 
@@ -39,11 +34,8 @@ def create_json():
     status["csgo"]["services"]["matchmakingScheduler"] = csgo_json["matchmaking"]["scheduler"].capitalize()
 
     status["csgo"]["servers"] = OrderedDict()
-    for location in csgo_json["datacenters"]:
-        status["csgo"]["servers"][location] = csgo_json["datacenters"][location]["load"].capitalize()
-
-    end = time.time()
-    app.logger.info("Finished update in %.2f seconds", end - start)
+    for region in csgo_json["datacenters"]:
+        status["csgo"]["servers"][region] = csgo_json["datacenters"][region]["load"].capitalize()
 
     return status
 
