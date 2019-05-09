@@ -10,3 +10,25 @@ class Status(db.Model):
 
     def __repr__(self):
         return "<Status(id={}, timestamp={})>".format(self.id, self.timestamp)
+
+
+class Region():
+    def __init__(self, name, flag):
+        self.id = name.lower().replace(" ", "-")
+        self.name = name
+        self.flag = flag
+
+    def __repr__(self):
+        return self.name
+
+
+class Flag():
+    def __init__(self, name, img, plural=False):
+        self.name = name
+        self.img = img
+        self.plural = plural
+
+    def __repr__(self):
+        if self.plural:
+            return "Flag of the {}".format(self.name)
+        return "Flag of {}".format(self.name)

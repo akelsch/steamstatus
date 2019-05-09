@@ -60,113 +60,19 @@
             </div>
             <div class="col h-100 ml-3 py-3 px-4 rounded status-group">
                 <h3>CS:GO Servers</h3>
-                <ul class="list-unstyled">
-                    <li>
-                        <img src="/static/img/flags/eu.gif" alt="Flag of the European Union"> EU North
-                        <span id="eu-north" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/eu.gif" alt="Flag of the European Union"> EU East
-                        <span id="eu-east" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/eu.gif" alt="Flag of the European Union"> EU West
-                        <span id="eu-west" class="status"></span>
-                    </li>
-                </ul>
-                <hr>
-                <ul class="list-unstyled">
-                    <li>
-                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Northcentral
-                        <span id="us-northcentral" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Northeast
-                        <span id="us-northeast" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Northwest
-                        <span id="us-northwest" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Southeast
-                        <span id="us-southeast" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/us.gif" alt="Flag of the United States"> US Southwest
-                        <span id="us-southwest" class="status"></span>
-                    </li>
-                </ul>
-                <hr>
-                <ul class="list-unstyled">
-                    <li>
-                        <img src="/static/img/flags/cn.gif" alt="Flag of China"> China Guangzhou
-                        <span id="china-guangzhou" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/cn.gif" alt="Flag of China"> China Shanghai
-                        <span id="china-shanghai" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/cn.gif" alt="Flag of China"> China Tianjin
-                        <span id="china-tianjin" class="status"></span>
-                    </li>
-                </ul>
-                <hr>
-                <ul class="list-unstyled">
-                    <li>
-                        <img src="/static/img/flags/au.gif" alt="Flag of Australia"> Australia
-                        <span id="australia" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/br.gif" alt="Flag of Brazil"> Brazil
-                        <span id="brazil" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/cl.gif" alt="Flag of Chile"> Chile
-                        <span id="chile" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/ae.gif" alt="Flag of the Emirates"> Emirates
-                        <span id="emirates" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/hk.gif" alt="Flag of Hong Kong"> Hong Kong
-                        <span id="hong-kong" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/in.gif" alt="Flag of India"> India
-                        <span id="india" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/in.gif" alt="Flag of India"> India East
-                        <span id="india-east" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/jp.gif" alt="Flag of Japan"> Japan
-                        <span id="japan" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/pe.gif" alt="Flag of Peru"> Peru
-                        <span id="peru" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/pl.gif" alt="Flag of Poland"> Poland
-                        <span id="poland" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/sg.gif" alt="Flag of Singapore"> Singapore
-                        <span id="singapore" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/za.gif" alt="Flag of South Africa"> South Africa
-                        <span id="south-africa" class="status"></span>
-                    </li>
-                    <li>
-                        <img src="/static/img/flags/es.gif" alt="Flag of Spain"> Spain
-                        <span id="spain" class="status"></span>
-                    </li>
-                </ul>
+                {%- for key in regions %}
+                    <ul class="list-unstyled">
+                        {%- for region in regions[key] %}
+                            <li>
+                                <img src="/static/img/flags/{{ region.flag.img }}.gif" alt="{{ region.flag }}">
+                                {{ region }} <span id="{{ region.id }}" class="status"></span>
+                            </li>
+                        {%- endfor %}
+                    </ul>
+                    {%- if not loop.last %}
+                    <hr>
+                    {%- endif %}
+                {%- endfor %}
             </div>
         </div>
     </main>
