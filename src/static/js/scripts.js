@@ -31,21 +31,12 @@ function handleData(data) {
     // Steam Services
     document.getElementById("online-users").textContent = data.steam.online.toLocaleString();
     Object.entries(data.steam.services).forEach(([key, value]) => {
-        key += "-status";
-
-        if (value === 200) {
-            value = "Normal";
-        } else {
-            value = "HTTP Status Code " + value;
-        }
-
-        document.getElementById(key).textContent = value;
+        document.getElementById(key).textContent = value == 200 ? "Normal" : "HTTP Status Code " + value;
     });
 
     // CS:GO Services
     document.getElementById("online-players").textContent = data.csgo.online.toLocaleString();
     Object.entries(data.csgo.services).forEach(([key, value]) => {
-        key = key.replace(/_/g, "-");
         document.getElementById(key).textContent = value;
     });
 

@@ -9,7 +9,7 @@ from config import API_KEY
 ONLINE_USERS_URL = "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=0"
 STORE_URL = "https://store.steampowered.com/"
 COMMUNITY_URL = "https://steamcommunity.com/"
-API_URL = "https://api.steampowered.com/ISteamWebAPIUtil/GetServerInfo/v1/"
+WEB_API_URL = "https://api.steampowered.com/ISteamWebAPIUtil/GetServerInfo/v1/"
 CSGO_URL = "https://api.steampowered.com/ICSGOServers_730/GetGameServersStatus/v1/?key=" + API_KEY
 
 
@@ -27,16 +27,16 @@ def create_json():
     status["steam"]["services"] = OrderedDict()
     status["steam"]["services"]["store"] = get_status_code(STORE_URL)
     status["steam"]["services"]["community"] = get_status_code(COMMUNITY_URL)
-    status["steam"]["services"]["api"] = get_status_code(API_URL)
+    status["steam"]["services"]["webApi"] = get_status_code(WEB_API_URL)
 
     # CS:GO
     csgo_json = get_json(CSGO_URL)["result"]
     status["csgo"] = OrderedDict()
     status["csgo"]["online"] = csgo_json["matchmaking"]["online_players"]
     status["csgo"]["services"] = OrderedDict()
-    status["csgo"]["services"]["sessions_logon"] = csgo_json["services"]["SessionsLogon"].capitalize()
-    status["csgo"]["services"]["player_inventories"] = csgo_json["services"]["SteamCommunity"].capitalize()
-    status["csgo"]["services"]["matchmaking_scheduler"] = csgo_json["matchmaking"]["scheduler"].capitalize()
+    status["csgo"]["services"]["sessionsLogon"] = csgo_json["services"]["SessionsLogon"].capitalize()
+    status["csgo"]["services"]["playerInventories"] = csgo_json["services"]["SteamCommunity"].capitalize()
+    status["csgo"]["services"]["matchmakingScheduler"] = csgo_json["matchmaking"]["scheduler"].capitalize()
 
     status["csgo"]["servers"] = OrderedDict()
     for location in csgo_json["datacenters"]:
