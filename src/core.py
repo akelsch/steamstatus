@@ -18,30 +18,29 @@ def create_json():
     app.logger.info("Starting status.json update")
     start = time.time()
 
-    steam_json = get_json(ONLINE_USERS_URL)
-    csgo_json = get_json(CSGO_URL)
-
     # TODO find a better way to do this
     status = OrderedDict()
-    status["steam"] = OrderedDict()
-    status["steam"]["services"] = OrderedDict()
-    status["csgo"] = OrderedDict()
-    status["csgo"]["services"] = OrderedDict()
-    status["csgo"]["servers"] = OrderedDict()
 
-    # Services
-    status["steam"]["online"] = steam_json["response"]["player_count"]
+    # Steam
+    status["steam"] = OrderedDict()
+    status["steam"]["online"] = get_json(ONLINE_USERS_URL)["response"]["player_count"]
+    status["steam"]["services"] = OrderedDict()
     status["steam"]["services"]["store"] = get_status_code(STORE_URL)
     status["steam"]["services"]["community"] = get_status_code(COMMUNITY_URL)
     status["steam"]["services"]["api"] = get_status_code(API_URL)
 
-    # CS:GO Servers
-    status["csgo"]["services"]["sessions_logon"] = csgo_json["result"]["services"]["SessionsLogon"].capitalize()
-    status["csgo"]["services"]["player_inventories"] = csgo_json["result"]["services"]["SteamCommunity"].capitalize()
-    status["csgo"]["services"]["matchmaking_scheduler"] = csgo_json["result"]["matchmaking"]["scheduler"].capitalize()
+    # CS:GO
+    csgo_json = get_json(CSGO_URL)["result"]
+    status["csgo"] = OrderedDict()
+    status["csgo"]["online"] = csgo_json["matchmaking"]["online_players"]
+    status["csgo"]["services"] = OrderedDict()
+    status["csgo"]["services"]["sessions_logon"] = csgo_json["services"]["SessionsLogon"].capitalize()
+    status["csgo"]["services"]["player_inventories"] = csgo_json["services"]["SteamCommunity"].capitalize()
+    status["csgo"]["services"]["matchmaking_scheduler"] = csgo_json["matchmaking"]["scheduler"].capitalize()
 
-    for location in csgo_json["result"]["datacenters"]:
-        status["csgo"]["servers"][location] = csgo_json["result"]["datacenters"][location]["load"].capitalize()
+    status["csgo"]["servers"] = OrderedDict()
+    for location in csgo_json["datacenters"]:
+        status["csgo"]["servers"][location] = csgo_json["datacenters"][location]["load"].capitalize()
 
     end = time.time()
     app.logger.info("Finished update in %.2f seconds", end - start)

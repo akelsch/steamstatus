@@ -28,10 +28,8 @@ function countdown() {
 }
 
 function handleData(data) {
-    // Online Users
+    // Steam Services
     document.getElementById("online-users").textContent = data.steam.online.toLocaleString();
-
-    // Services I
     Object.entries(data.steam.services).forEach(([key, value]) => {
         key += "-status";
 
@@ -44,7 +42,8 @@ function handleData(data) {
         document.getElementById(key).textContent = value;
     });
 
-    // Services II
+    // CS:GO Services
+    document.getElementById("online-players").textContent = data.csgo.online.toLocaleString();
     Object.entries(data.csgo.services).forEach(([key, value]) => {
         key = key.replace(/_/g, "-");
         document.getElementById(key).textContent = value;
