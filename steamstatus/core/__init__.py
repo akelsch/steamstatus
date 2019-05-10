@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 import requests
 
 from steamstatus.config import API_KEY
@@ -13,29 +11,34 @@ CSGO_URL = "https://api.steampowered.com/ICSGOServers_730/GetGameServersStatus/v
 
 def create_new_status():
     """Creates status.json from scratch."""
-    # TODO find a better way to do this
-    status = OrderedDict()
-
-    # Steam
-    status["steam"] = OrderedDict()
-    status["steam"]["online"] = get_json(ONLINE_USERS_URL)["response"]["player_count"]
-    status["steam"]["services"] = OrderedDict()
-    status["steam"]["services"]["store"] = get_status_code(STORE_URL)
-    status["steam"]["services"]["community"] = get_status_code(COMMUNITY_URL)
-    status["steam"]["services"]["webApi"] = get_status_code(WEB_API_URL)
-
-    # CS:GO
     csgo_json = get_json(CSGO_URL)["result"]
-    status["csgo"] = OrderedDict()
-    status["csgo"]["online"] = csgo_json["matchmaking"]["online_players"]
-    status["csgo"]["services"] = OrderedDict()
-    status["csgo"]["services"]["sessionsLogon"] = csgo_json["services"]["SessionsLogon"].capitalize()
-    status["csgo"]["services"]["playerInventories"] = csgo_json["services"]["SteamCommunity"].capitalize()
-    status["csgo"]["services"]["matchmakingScheduler"] = csgo_json["matchmaking"]["scheduler"].capitalize()
 
-    status["csgo"]["servers"] = OrderedDict()
-    for region in csgo_json["datacenters"]:
-        status["csgo"]["servers"][region] = csgo_json["datacenters"][region]["load"].capitalize()
+    status = {
+        "steam": {
+            "online": get_json(ONLINE_USERS_URL)["response"]["player_count"],
+            "services": {
+                "store": get_status_code(STORE_URL),
+                "community": get_status_code(COMMUNITY_URL),
+                "webApi": get_status_code(WEB_API_URL)
+            }
+        },
+        "csgo": {
+            "online": csgo_json["matchmaking"]["online_players"],
+            "services": {
+                "sessionsLogon": csgo_json["services"]["SessionsLogon"],
+                "playerInventories": csgo_json["services"]["SteamCommunity"],
+                "matchmakingScheduler": csgo_json["matchmaking"]["scheduler"]
+            },
+            "servers": {
+            }
+        }
+    }
+
+    # Capitalize csgo services values
+    status["csgo"]["services"] = {k: v.capitalize() for k, v in status["csgo"]["services"].items()}
+
+    # Fill csgo servers load values, also capitalized
+    status["csgo"]["servers"] = {k: v["load"].capitalize() for k, v in csgo_json["datacenters"].items()}
 
     return status
 
