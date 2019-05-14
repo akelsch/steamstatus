@@ -1,6 +1,6 @@
 import requests
 
-from steamstatus.config import API_KEY
+from steamstatus.config import API_KEY, REQUESTS_TIMEOUT
 
 ONLINE_USERS_URL = "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=0"
 STORE_URL = "https://store.steampowered.com/"
@@ -52,7 +52,7 @@ def get_json(url):
 def get_status_code(url):
     """Makes a request to a given URL and returns the response status code."""
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=REQUESTS_TIMEOUT)
     except requests.exceptions.RequestException as e:
         return 503
 
