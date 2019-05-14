@@ -12,17 +12,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
-<body>
-    <header class="container my-4 clearfix">
-        <h1>steamstatus</h1>
-        <p class="float-left">A Steam monitoring service built with Flask</p>
-        <p class="float-right">Updating in <span id="countdown"></span>s</p>
-    </header>
+<body class="py-4">
+    <div class="container">
+        <header class="clearfix">
+            <h1>steamstatus</h1>
+            <p class="float-left">A Steam monitoring service built with Flask</p>
+            <p class="float-right">Updating in <span id="countdown"></span>s</p>
+        </header>
 
-    <div id="server-message" class="container alert alert-danger" role="alert" style="display: none;"></div>
+        <div id="server-message" class="alert alert-danger" role="alert" style="display: none;"></div>
 
-    <main class="container my-4">
-        <div class="row">
+        <main class="row mt-4">
             <div class="col h-100 mr-3 px-4 py-3 rounded status-group">
                 <h3>Steam Services</h3>
                 <ul class="list-unstyled">
@@ -62,8 +62,8 @@
                 {%- endif %}
                 {%- endfor %}
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
