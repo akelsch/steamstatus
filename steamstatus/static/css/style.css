@@ -34,3 +34,16 @@ hr {
 .status {
     float: right;
 }
+
+/* Possible status colors */
+.good {
+    color: #6c9541;
+}
+
+.okay {
+    color: #53a4c4;
+}
+
+.bad {
+    color: #f44336;
+}

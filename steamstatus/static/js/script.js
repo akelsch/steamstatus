@@ -56,30 +56,16 @@ function handleError(error) {
 
 function highlightDocument() {
     const statuses = {
-        bad: {
-            color: "#F44336", // red
-            keywords: ["Offline", "High"]
-        },
-        okay: {
-            color: "#53A4C4", // blue
-            keywords: ["Delayed", "Medium"],
-        },
-        good: {
-            color: "#6C9541", // green
-            keywords: ["Idle", "Normal", "Low"]
-        }
-    }
+        good: ["Idle", "Low", "Normal"],
+        okay: ["Delayed", "Medium"],
+        bad: ["Critical", "Full", "High", "Offline", "Surge"]
+    };
 
     // Set color for every status class member
     document.querySelectorAll(".status").forEach(status => {
         const statusText = status.textContent;
-
-        if (statuses.bad.keywords.includes(statusText)) {
-            status.style.color = statuses.bad.color;
-        } else if (statuses.okay.keywords.includes(statusText)) {
-            status.style.color = statuses.okay.color;
-        } else if (statuses.good.keywords.includes(statusText)) {
-            status.style.color = statuses.good.color;
-        }
+        status.classList.toggle("good", statuses.good.includes(statusText));
+        status.classList.toggle("okay", statuses.okay.includes(statusText));
+        status.classList.toggle("bad", statuses.bad.includes(statusText));
     });
 }
