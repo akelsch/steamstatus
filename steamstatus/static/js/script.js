@@ -49,7 +49,7 @@ function handleError(error) {
     clearInterval(intervalId);
 
     // Display error message
-    const serverMessage = document.getElementById("server-message");
+    const serverMessage = document.getElementById("errormsg");
     serverMessage.textContent = "Oops, something went wrong. Is Flask up and running?";
     serverMessage.removeAttribute("style");
 }
