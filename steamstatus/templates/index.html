@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header class="container my-4">
+    <header class="container my-4 clearfix">
         <h1>steamstatus</h1>
         <p class="float-left">A Steam monitoring service built with Flask</p>
         <p class="float-right">Updating in <span id="countdown"></span>s</p>
@@ -23,7 +23,7 @@
 
     <main class="container my-4">
         <div class="row">
-            <div class="col h-100 mr-3 py-3 px-4 rounded status-group">
+            <div class="col h-100 mr-3 px-4 py-3 rounded status-group">
                 <h3>Steam Services</h3>
                 <ul class="list-unstyled">
                     <li>
@@ -46,7 +46,7 @@
                     <li>Matchmaking Scheduler <span id="matchmakingScheduler" class="status"></span></li>
                 </ul>
             </div>
-            <div class="col h-100 ml-3 py-3 px-4 rounded status-group">
+            <div class="col h-100 ml-3 px-4 py-3 rounded status-group">
                 <h3>CS:GO Servers</h3>
                 {%- for key in regions %}
                 <ul class="list-unstyled">

@@ -3,10 +3,6 @@ body {
     background: #1b2838;
 }
 
-header {
-    overflow: auto;
-}
-
 a {
     color: #2f89bc;
 }
@@ -26,6 +22,7 @@ hr {
 }
 
 .status-group > ul {
+    /* Equals mb-0 */
     margin-bottom: 0;
 }
 
