@@ -28,19 +28,35 @@ function handleData(data) {
     // Steam Services
     document.getElementById("online-users").textContent = data.steam.online.toLocaleString();
     Object.entries(data.steam.services).forEach(([key, value]) => {
-        document.getElementById(key).textContent = value == 200 ? "Normal" : "HTTP Status Code " + value;
+        const elem = document.getElementById(key);
+        if (elem) {
+            elem.textContent = value == 200 ? "Normal" : "HTTP Status Code " + value;
+        } else {
+            console.log(`Unknown element '${key}'`);
+        }
+
     });
 
     // CS:GO Services
     document.getElementById("online-players").textContent = data.csgo.online.toLocaleString();
     Object.entries(data.csgo.services).forEach(([key, value]) => {
-        document.getElementById(key).textContent = value;
+        const elem = document.getElementById(key);
+        if (elem) {
+            elem.textContent = value;
+        } else {
+            console.log(`Unknown element '${key}'`);
+        }
     });
 
     // CS:GO Servers
     Object.entries(data.csgo.servers).forEach(([key, value]) => {
         key = key.toLowerCase().replace(/ /g, "-");
-        document.getElementById(key).textContent = value;
+        const elem = document.getElementById(key);
+        if (elem) {
+            elem.textContent = value;
+        } else {
+            console.log(`Unknown element '${key}'`);
+        }
     });
 }
 
