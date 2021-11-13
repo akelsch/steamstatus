@@ -30,7 +30,7 @@ def init():
 
 @app.route("/")
 def index():
-    return render_template("index.html", regions=REGIONS)
+    return render_template("index.html.jinja", regions=REGIONS)
 
 
 @app.route("/status.json")
