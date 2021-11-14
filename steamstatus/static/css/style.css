@@ -8,13 +8,16 @@ a {
 }
 
 a:hover {
-    text-decoration: none;
-
     color: #66c0f4;
 }
 
 hr {
-    border-top: 1px solid #29363d;
+    color: #29363d;
+    opacity: 1;
+}
+
+.container {
+    max-width: 1140px;
 }
 
 .status-group {
@@ -27,7 +30,7 @@ hr {
 }
 
 .status-group > ul > li > img {
-    /* Equals mr-2 */
+    /* Equals me-2 */
     margin-right: 0.5rem;
 }
 
