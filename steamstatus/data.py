@@ -24,6 +24,7 @@ REGIONS = {
         Region("China Tianjin", CHINA_FLAG)
     ],
     "other": [
+        Region("Argentina", Flag("Argentina", "ar")),
         Region("Australia", Flag("Australia", "au")),
         Region("Brazil", Flag("Brazil", "br")),
         Region("Chile", Flag("Chile", "cl")),
@@ -36,6 +37,7 @@ REGIONS = {
         Region("Poland", Flag("Poland", "pl")),
         Region("Singapore", Flag("Singapore", "sg")),
         Region("South Africa", Flag("South Africa", "za")),
+        Region("South Korea", Flag("South Korea", "kr")),
         Region("Spain", Flag("Spain", "es"))
     ]
 }
