@@ -17,7 +17,7 @@ function countdown() {
 }
 
 async function updateDocument() {
-    fetch("status.json")
+    fetch("/status")
         .then(response => response.json())
         .then(data => handleData(data))
         .catch(error => handleError(error))

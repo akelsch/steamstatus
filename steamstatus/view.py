@@ -11,6 +11,6 @@ def index():
     return render_template("index.html.jinja", regions=REGIONS)
 
 
-@bp.route("/status.json")
+@bp.route("/status")
 def status():
     return jsonify(get_latest_status().data)

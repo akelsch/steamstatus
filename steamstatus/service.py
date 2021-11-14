@@ -12,7 +12,7 @@ def get_latest_status() -> Status:
 
 
 def update_status():
-    app.logger.info("Starting status.json update")
+    app.logger.info("Starting status update")
     t0 = time.perf_counter()
 
     new_status = Status(data=create_new_status())

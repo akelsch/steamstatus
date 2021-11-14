@@ -10,7 +10,7 @@ CSGO_URL = "https://api.steampowered.com/ICSGOServers_730/GetGameServersStatus/v
 
 
 def create_new_status():
-    """Creates status.json from scratch."""
+    """Creates status information from scratch."""
     csgo_json = get_json(CSGO_URL)["result"]
 
     status = {
