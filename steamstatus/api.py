@@ -1,7 +1,7 @@
 import requests
 from flask import current_app as app
 
-ONLINE_USERS_URL = "https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=0"
+ONLINE_USERS_URL = "https://store.steampowered.com/stats/userdata.json"
 CSGO_URL = "https://api.steampowered.com/ICSGOServers_730/GetGameServersStatus/v1/?key={}"
 STORE_URL = "https://store.steampowered.com/"
 COMMUNITY_URL = "https://steamcommunity.com/"
@@ -12,7 +12,7 @@ def create_new_status():
     """Creates status information from scratch."""
     csgo_url_with_key = CSGO_URL.format(app.config.get("API_KEY"))
 
-    online_users_json = get_json(ONLINE_USERS_URL)["response"]
+    online_users_json = get_json(ONLINE_USERS_URL)[0]["data"]
     csgo_json = get_json(csgo_url_with_key)["result"]
     store_status = get_status_code(STORE_URL)
     community_status = get_status_code(COMMUNITY_URL)
@@ -20,7 +20,7 @@ def create_new_status():
 
     status = {
         "steam": {
-            "online": online_users_json["player_count"],
+            "online": online_users_json[-1][1],
             "services": {
                 "store": store_status,
                 "community": community_status,
