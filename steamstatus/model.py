@@ -12,18 +12,8 @@ class Status(db.Model):
         return "<Status(id={}, timestamp={})>".format(self.id, self.timestamp)
 
 
-class Region():
-    def __init__(self, name, flag):
-        self.id = name.lower().replace(" ", "-")
-        self.name = name
-        self.flag = flag
-
-    def __repr__(self):
-        return self.name
-
-
 class Flag():
-    def __init__(self, name, img, plural=False):
+    def __init__(self, name: str, img: str, plural: bool = False):
         self.name = name
         self.img = "img/flags/{}.gif".format(img)
         self.plural = plural
@@ -32,3 +22,13 @@ class Flag():
         if self.plural:
             return "Flag of the {}".format(self.name)
         return "Flag of {}".format(self.name)
+
+
+class Region():
+    def __init__(self, name: str, flag: Flag):
+        self.id = name.lower().replace(" ", "-")
+        self.name = name
+        self.flag = flag
+
+    def __repr__(self):
+        return self.name
