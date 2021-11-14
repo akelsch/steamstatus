@@ -20,4 +20,4 @@ def update_status():
     db.session.commit()
 
     t1 = time.perf_counter()
-    app.logger.info("Finished update in %.2f seconds", t1 - t0)
+    app.logger.info("Finished status update in %.2fs", t1 - t0)
