@@ -1,47 +1,40 @@
 import os
 
-import click
-from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask
-from flask.cli import with_appcontext
-from flask_sqlalchemy import SQLAlchemy
 
 from steamstatus.config import API_KEY
 
-app = Flask(__name__)
 
-db_scheme = "sqlite:///" if os.name == "nt" else "sqlite:////"
-db_uri = db_scheme + os.path.join(app.instance_path, "steamstatus.sqlite")
-# Ensure the instance folder exists
-os.makedirs(app.instance_path, exist_ok=True)
+def create_app():
+    app = Flask(__name__)
 
-app.config.from_mapping(
-    JSON_SORT_KEYS=False,
-    SQLALCHEMY_DATABASE_URI=db_uri,
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
-)
+    DB_SCHEME = "sqlite:///" if os.name == "nt" else "sqlite:////"
+    DB_URI = DB_SCHEME + os.path.join(app.instance_path, "steamstatus.sqlite")
 
-# Ensure API key is set
-if not API_KEY:
-    raise Exception("Missing Steam API key in config.py")
+    app.config.from_mapping(
+        JSON_SORT_KEYS=False,
+        SQLALCHEMY_DATABASE_URI=DB_URI,
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        SCHEDULER_TIMEZONE="Europe/Berlin"
+    )
 
-db = SQLAlchemy(app)
-scheduler = BackgroundScheduler()
+    # Ensure the instance folder exists
+    os.makedirs(app.instance_path, exist_ok=True)
 
-import steamstatus.core.views  # isort:skip
+    # Ensure API key is set
+    if not API_KEY:
+        raise Exception("Missing Steam API key in config.py")
 
+    # Initialize database
+    from steamstatus import db
+    db.init_app(app)
 
-def init_db():
-    db.drop_all()
-    db.create_all()
+    # Initialize scheduler
+    from steamstatus import scheduler
+    scheduler.init_app(app)
 
+    # Initialize views
+    from steamstatus.view import bp
+    app.register_blueprint(bp)
 
-@click.command("init-db")
-@with_appcontext
-def init_db_command():
-    """Clear existing data and create new tables."""
-    init_db()
-    click.echo("Initialized the database.")
-
-
-app.cli.add_command(init_db_command)
+    return app

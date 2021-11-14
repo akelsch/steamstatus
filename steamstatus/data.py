@@ -1,43 +1,4 @@
-import time
-
-from flask import jsonify, render_template
-
-from steamstatus import app, db, scheduler
-from steamstatus.config import UPDATE_FREQUENCY
-from steamstatus.core import create_new_status
-from steamstatus.core.models import Flag, Region, Status
-
-
-def update_status():
-    app.logger.info("Starting status.json update")
-    t0 = time.perf_counter()
-
-    new_status = Status(data=create_new_status())
-    db.session.add(new_status)
-    db.session.commit()
-
-    t1 = time.perf_counter()
-    app.logger.info("Finished update in %.2f seconds", t1 - t0)
-
-
-@app.before_first_request
-def init():
-    # Update once & start scheduler
-    update_status()
-    scheduler.add_job(update_status, "interval", seconds=UPDATE_FREQUENCY)
-    scheduler.start()
-
-
-@app.route("/")
-def index():
-    return render_template("index.html.jinja", regions=REGIONS)
-
-
-@app.route("/status.json")
-def status():
-    latest_status = Status.query.order_by(Status.id.desc()).first()
-    return jsonify(latest_status.data)
-
+from steamstatus.model import Flag, Region
 
 EU_FLAG = Flag("European Union", "eu", True)
 US_FLAG = Flag("United States", "us", True)

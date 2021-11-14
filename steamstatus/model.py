@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from steamstatus import db
+from steamstatus.db import db
 
 
 class Status(db.Model):
