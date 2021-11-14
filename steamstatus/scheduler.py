@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_apscheduler import APScheduler
 
-from steamstatus.config import UPDATE_FREQUENCY
 from steamstatus.service import update_status
 
 scheduler = APScheduler()
@@ -19,4 +18,4 @@ def init_app(app: Flask):
     @app.before_first_request
     def before_first_request():
         update_status()
-        scheduler.add_job("update_job", update_job, trigger="interval", seconds=UPDATE_FREQUENCY)
+        scheduler.add_job("update_job", update_job, trigger="interval", seconds=app.config.get("UPDATE_FREQUENCY"))

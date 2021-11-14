@@ -16,5 +16,8 @@ COPY steamstatus/ steamstatus/
 EXPOSE 5000
 
 ENV FLASK_APP=steamstatus
+# ENV FLASK_ENV=development
+ARG API_KEY=xxx
+
 RUN flask init-db
 CMD ["flask", "run", "--host=0.0.0.0"]
